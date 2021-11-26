@@ -94,7 +94,7 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["EVRAZ", "BTS", "USD", "CNY", "BTC", "EUR", "GBP"];
+    return ["BTS", "USD", "CNY", "BTC", "EUR", "GBP"];
 }
 
 export function getDefaultMarket() {
@@ -310,7 +310,7 @@ export function getAssetNamespaces() {
     if (_isTestnet()) {
         return [];
     }
-    return ["EVRAZ", "BTS", "USD", "EUR", "RUBLE", "CNY", "BTC", "ETH"];
+    return ["OPEN.", "RUDEX.", "GDEX.", "XBTSX.", "CITADEL."];
 }
 
 /**
