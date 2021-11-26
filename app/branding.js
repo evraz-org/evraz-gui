@@ -310,7 +310,7 @@ export function getAssetNamespaces() {
     if (_isTestnet()) {
         return [];
     }
-    return ["OPEN.", "RUDEX.", "GDEX.", "XBTSX.", "CITADEL."];
+    return ["EVRAZ", "BTS", "USD", "EUR", "RUBLE", "CNY", "BTC", "ETH"];
 }
 
 /**
