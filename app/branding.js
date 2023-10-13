@@ -63,7 +63,7 @@ export function getTestFaucet() {
  * @returns {*}
  */
 export function getLogo() {
-    return require("assets/evraz_big.png");
+    return require("assets/evraz_big.png").default;
     // return "/assets/evraz_big.png";
 }
 
