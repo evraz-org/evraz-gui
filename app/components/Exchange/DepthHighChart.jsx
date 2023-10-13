@@ -8,6 +8,7 @@ import Translate from "react-translate-component";
 import colors from "assets/colors";
 import AssetName from "../Utility/AssetName";
 import {didOrdersChange} from "common/MarketClasses";
+import {numberExponentToLarge} from "../../lib/common/numberExplonentConversion";
 
 class DepthHighChart extends React.Component {
     shouldComponentUpdate(nextProps) {
@@ -34,7 +35,7 @@ class DepthHighChart extends React.Component {
         this.reflowChart(500);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         if (
             this.refs.depthChart &&
             nextProps.activePanels !== this.props.activePanels
@@ -43,7 +44,7 @@ class DepthHighChart extends React.Component {
         }
     }
 
-    componentWillUpdate() {
+    UNSAFE_componentWillUpdate() {
         if (this.props.centerRef) {
             this.tempScroll = this.props.centerRef.scrollTop;
         }
@@ -192,10 +193,10 @@ class DepthHighChart extends React.Component {
                 labels: {
                     style: {
                         color: primaryText
+                    },
+                    formatter: function() {
+                        return numberExponentToLarge(this.value);
                     }
-                    // formatter: function() {
-                    //     return this.value / power;
-                    // }
                 },
                 ordinal: false,
                 lineColor: "#000000",
@@ -384,7 +385,7 @@ class DepthHighChart extends React.Component {
         }
 
         // Add settle orders
-        if (feedPrice && (flatSettles && flatSettles.length)) {
+        if (feedPrice && flatSettles && flatSettles.length) {
             config.series.push({
                 name: `Settle ${quoteSymbol}`,
                 data: flatSettles,

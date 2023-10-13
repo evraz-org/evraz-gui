@@ -88,12 +88,12 @@ h6 {
 
 .json-inspector__key {
     @include MonospaceFont;
-    text-transform: none;
+    text-transform: none !important;
 }
 
 .json-inspector__value {
     @include MonospaceFont;
-    text-transform: none;
+    text-transform: none !important;
 }
 
 button,
@@ -245,10 +245,6 @@ button,
     .key-value-table tr > td:first-child {
         @include RobotoRegular;
     }
-}
-
-.menu-bar li span:nth-of-type(2) {
-    @include RobotoMedium;
 }
 
 strong,

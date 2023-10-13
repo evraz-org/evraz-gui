@@ -1,6 +1,6 @@
 import cnames from "classnames";
 import translator from "counterpart";
-import {StickyTable} from "react-sticky-table";
+import {StickyTable, Row, Cell} from "react-sticky-table";
 import React from "react";
 import Translate from "react-translate-component";
 import PropTypes from "prop-types";
@@ -12,6 +12,7 @@ import TransitionWrapper from "../Utility/TransitionWrapper";
 import AssetName from "../Utility/AssetName";
 import Icon from "../Icon/Icon";
 import {Select, Icon as AntIcon, Tooltip} from "bitshares-ui-style-guide";
+import ReactDOM from "react-dom";
 
 /**
  * @array: orderRows
@@ -31,8 +32,7 @@ class OrderRows extends React.Component {
             <TransitionWrapper
                 id={id}
                 ref={isBid ? "bidTransition" : "askTransaction"}
-                className="transition-container clickable"
-                component="div"
+                component={null}
                 transitionName="newrow"
             >
                 {orderRows.length > 0
@@ -72,39 +72,40 @@ class OrderBookRowVertical extends React.Component {
         let integerClass = isCall
             ? "orderHistoryCall"
             : isBid
-                ? "orderHistoryBid"
-                : "orderHistoryAsk";
+            ? "orderHistoryBid"
+            : "orderHistoryAsk";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
         );
         return (
-            <div
+            <Row
                 onClick={this.props.onClick}
                 className={cnames(
                     "sticky-table-row order-row",
                     {"final-row": final},
-                    {"my-order": order.isMine(this.props.currentAccount)}
+                    {"my-order": order.isMine(this.props.currentAccount)},
+                    "clickable"
                 )}
             >
-                <div className="cell left">
+                <Cell className="cell left">
                     {utils.format_number(
                         order[
                             isBid ? "amountForSale" : "amountToReceive"
                         ]().getAmount({real: true}),
                         base.get("precision")
                     )}
-                </div>
-                <div className="cell">
+                </Cell>
+                <Cell className="cell">
                     {utils.format_number(
                         order[
                             isBid ? "amountToReceive" : "amountForSale"
                         ]().getAmount({real: true}),
                         quote.get("precision")
                     )}
-                </div>
-                <div className={`cell ${integerClass} right`}>{price}</div>
-            </div>
+                </Cell>
+                <Cell className={`cell ${integerClass} right`}>{price}</Cell>
+            </Row>
         );
     }
 }
@@ -130,8 +131,8 @@ class OrderBookRowHorizontal extends React.Component {
         let integerClass = isCall
             ? "orderHistoryCall"
             : isBid
-                ? "orderHistoryBid"
-                : "orderHistoryAsk";
+            ? "orderHistoryBid"
+            : "orderHistoryAsk";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
@@ -171,12 +172,20 @@ class OrderBookRowHorizontal extends React.Component {
                   totalAsset.get("precision")
               );
 
+        let bgImage = "";
+        if(this.props.marketDepthPercentage && !this.props.isBid) {
+            bgImage = `linear-gradient(to right, rgba(255,0,0,.15) ${this.props.marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props.marketDepthPercentage || 0}%)`
+        } else if(this.props.marketDepthPercentage && this.props.isBid) {
+            bgImage = `linear-gradient(to left, rgba(0,255,0,.15) ${this.props.marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props.marketDepthPercentage || 0}%)`
+        }
+        
         return (
             <tr
                 onClick={this.props.onClick}
                 className={
                     order.isMine(this.props.currentAccount) ? "my-order" : ""
                 }
+                style={{backgroundImage: bgImage}}
             >
                 {position === "left" ? (
                     <td className="column-hide-xs">{total}</td>
@@ -218,30 +227,32 @@ class GroupedOrderBookRowVertical extends React.Component {
             <PriceText price={order.getPrice()} quote={quote} base={base} />
         );
         return (
-            <div
+            <Row
                 onClick={this.props.onClick}
-                className={cnames("sticky-table-row order-row", {
-                    "final-row": final
-                })}
+                className={cnames(
+                    "sticky-table-row order-row",
+                    {"final-row": final},
+                    "clickable"
+                )}
             >
-                <div className="cell left">
+                <Cell className="cell left">
                     {utils.format_number(
                         order[
                             isBid ? "amountForSale" : "amountToReceive"
                         ]().getAmount({real: true}),
                         base.get("precision")
                     )}
-                </div>
-                <div className="cell">
+                </Cell>
+                <Cell className="cell">
                     {utils.format_number(
                         order[
                             isBid ? "amountToReceive" : "amountForSale"
                         ]().getAmount({real: true}),
                         quote.get("precision")
                     )}
-                </div>
-                <div className={`cell ${integerClass} right`}>{price}</div>
-            </div>
+                </Cell>
+                <Cell className={`cell ${integerClass} right`}>{price}</Cell>
+            </Row>
         );
     }
 }
@@ -419,6 +430,10 @@ class OrderBook extends React.Component {
         };
         this.verticalStickyTable = React.createRef();
         this.centerText = React.createRef();
+        this.hor_bids = React.createRef();
+        this.hor_asks = React.createRef();
+        this.askTransition = React.createRef();
+        this.bidTransition = React.createRef();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -427,15 +442,15 @@ class OrderBook extends React.Component {
             this.props.hideScrollbars &&
             nextState.showAllAsks != this.state.showAllAsks
         ) {
-            let asksContainer = this.refs.hor_asks;
+            let asksContainer = this.hor_asks.current;
             if (!nextState.showAllAsks) {
                 Ps.destroy(asksContainer);
             } else {
                 Ps.initialize(asksContainer);
                 this.psUpdate();
             }
-            this.refs.askTransition.resetAnimation();
-            if (this.refs.hor_asks) this.refs.hor_asks.scrollTop = 0;
+            this.askTransition.current.resetAnimation();
+            if (this.hor_asks.current) this.hor_asks.current.scrollTop = 0;
         }
 
         if (
@@ -443,15 +458,15 @@ class OrderBook extends React.Component {
             this.props.hideScrollbars &&
             nextState.showAllBids != this.state.showAllBids
         ) {
-            let bidsContainer = this.refs.hor_bids;
+            let bidsContainer = this.hor_bids.current;
             if (!nextState.showAllBids) {
                 Ps.destroy(bidsContainer);
             } else {
                 Ps.initialize(bidsContainer);
                 this.psUpdate();
             }
-            this.refs.bidTransition.resetAnimation();
-            if (this.refs.hor_bids) this.refs.hor_bids.scrollTop = 0;
+            this.bidTransition.current.resetAnimation();
+            if (this.hor_bids.current) this.hor_bids.current.scrollTop = 0;
         }
 
         // if (!nextProps.marketReady) return false;
@@ -465,14 +480,14 @@ class OrderBook extends React.Component {
             nextProps.base.get("id") !== prevProps.base.get("id") ||
             nextProps.quote.get("id") !== prevProps.quote.get("id")
         ) {
-            if (this.refs.askTransition) {
-                this.refs.askTransition.resetAnimation();
-                if (this.refs.hor_asks) this.refs.hor_asks.scrollTop = 0;
-                if (this.refs.hor_bids) this.refs.hor_bids.scrollTop = 0;
+            if (this.askTransition.current) {
+                this.askTransition.current.resetAnimation();
+                if (this.hor_asks.current) this.hor_asks.current.scrollTop = 0;
+                if (this.hor_bids.current) this.hor_bids.current.scrollTop = 0;
             }
 
-            if (this.refs.bidTransition) {
-                this.refs.bidTransition.resetAnimation();
+            if (this.bidTransition.current) {
+                this.bidTransition.current.resetAnimation();
             }
 
             if (this.refs.vert_bids) this.refs.vert_bids.scrollTop = 0;
@@ -482,8 +497,8 @@ class OrderBook extends React.Component {
             }
         }
 
-        let bidsContainer = this.refs.hor_bids;
-        let asksContainer = this.refs.hor_asks;
+        let bidsContainer = this.hor_bids.current;
+        let asksContainer = this.hor_asks.current;
 
         if (
             this.props.horizontal &&
@@ -501,8 +516,8 @@ class OrderBook extends React.Component {
         ) {
             Ps.initialize(bidsContainer);
             Ps.initialize(asksContainer);
-            this.refs.askTransition.resetAnimation();
-            this.refs.bidTransition.resetAnimation();
+            this.askTransition.current.resetAnimation();
+            this.bidTransition.current.resetAnimation();
             if (asksContainer) asksContainer.scrollTop = 0;
             if (bidsContainer) bidsContainer.scrollTop = 0;
             this.psUpdate();
@@ -511,20 +526,22 @@ class OrderBook extends React.Component {
         this.centerVerticalScrollBar();
     }
 
-    queryStickyTable = query => {
-        return this.verticalStickyTable.current.table.querySelector(query);
+    queryStickyTable = (query = null) => {
+        const node = ReactDOM.findDOMNode(this.verticalStickyTable.current);
+        if (query == null) return node;
+        return node.querySelector(query);
     };
 
-    verticalScrollBar = () => this.queryStickyTable("#y-scrollbar");
+    verticalScrollBar = () => this.queryStickyTable();
 
     componentDidMount() {
         if (!this.props.horizontal) {
             Ps.initialize(this.verticalScrollBar());
         } else {
             if (!this.props.hideScrollbars) {
-                let bidsContainer = this.refs.hor_bids;
+                let bidsContainer = this.hor_bids.current;
                 Ps.initialize(bidsContainer);
-                let asksContainer = this.refs.hor_asks;
+                let asksContainer = this.hor_asks.current;
                 Ps.initialize(asksContainer);
             }
         }
@@ -533,10 +550,8 @@ class OrderBook extends React.Component {
     centerVerticalScrollBar() {
         if (!this.props.horizontal && this.state.autoScroll) {
             // Center vertical scroll bar
-            const scrollableContainer = this.queryStickyTable(
-                "#sticky-table-y-wrapper"
-            );
-            const header = this.queryStickyTable("#sticky-table-header");
+            const scrollableContainer = this.queryStickyTable();
+            const header = this.queryStickyTable(".top-header");
             const centerTextContainer = this.centerText.current;
             const singleRowHeight = elemHeight(
                 this.queryStickyTable(".order-row")
@@ -548,8 +563,8 @@ class OrderBook extends React.Component {
                         ? this.props.groupedAsks
                         : this.props.groupedBids
                     : !this.props.orderBookReversed
-                        ? this.props.combinedAsks
-                        : this.props.combinedBids;
+                    ? this.props.combinedAsks
+                    : this.props.combinedBids;
 
             const rowsHeight = rows.length * singleRowHeight;
 
@@ -569,9 +584,9 @@ class OrderBook extends React.Component {
         if (!this.props.horizontal) {
             Ps.update(this.verticalScrollBar());
         } else {
-            let bidsContainer = this.refs.hor_bids;
+            let bidsContainer = this.hor_bids.current;
             Ps.update(bidsContainer);
-            let asksContainer = this.refs.hor_asks;
+            let asksContainer = this.hor_asks.current;
             Ps.update(asksContainer);
         }
     }
@@ -587,7 +602,7 @@ class OrderBook extends React.Component {
             });
 
             if (this.state.showAllAsks) {
-                this.refs.hor_asks.scrollTop = 0;
+                this.hor_asks.current.scrollTop = 0;
             }
         } else {
             this.setState({
@@ -595,7 +610,7 @@ class OrderBook extends React.Component {
             });
 
             if (this.state.showAllBids) {
-                this.refs.hor_bids.scrollTop = 0;
+                this.hor_bids.current.scrollTop = 0;
             }
         }
     }
@@ -764,7 +779,11 @@ class OrderBook extends React.Component {
                     );
                 });
             } else {
+                let maxBid = tempBids.length ? tempBids[tempBids.length - 1].totalForSale().getAmount() : 0;
+                
                 bidRows = tempBids.map((order, index) => {
+                    const value = order.totalForSale().getAmount();
+                    const percentage = Math.ceil(value * 100 / maxBid);
                     return horizontal ? (
                         <OrderBookRowHorizontal
                             index={index}
@@ -772,6 +791,8 @@ class OrderBook extends React.Component {
                                 order.getPrice() +
                                 (order.isCall() ? "_call" : "")
                             }
+                            marketDepthPercentage={percentage}
+                            isBid={true}
                             order={order}
                             onClick={this.props.onClick.bind(this, order)}
                             base={base}
@@ -797,10 +818,16 @@ class OrderBook extends React.Component {
                     );
                 });
 
+                let maxAsk = tempAsks.length ? tempAsks[tempAsks.length - 1].totalForSale().getAmount() : 0;
+                
                 askRows = tempAsks.map((order, index) => {
+                    const value = order.totalForSale().getAmount();
+                    const percentage = Math.ceil(value * 100 / maxAsk);
                     return horizontal ? (
                         <OrderBookRowHorizontal
                             index={index}
+                            marketDepthPercentage={percentage}
+                            isBid={false}
                             key={
                                 order.getPrice() +
                                 (order.isCall() ? "_call" : "")
@@ -1046,14 +1073,14 @@ class OrderBook extends React.Component {
                                     </span>
                                 </div>
                             </div>
-                            <div className="market-right-padding-only">
+                            <div className="market-right-padding-only" style={{ paddingRight: "0.6rem" }} >
                                 <table className="table order-table table-hover fixed-table text-right">
                                     {!flipOrderBook ? rightHeader : leftHeader}
                                 </table>
                             </div>
                             <div
                                 className="grid-block"
-                                ref="hor_asks"
+                                ref={this.hor_asks}
                                 style={{
                                     paddingRight: "0.6rem",
                                     overflow: "hidden",
@@ -1066,7 +1093,7 @@ class OrderBook extends React.Component {
                                     className="table order-table no-stripes table-hover fixed-table text-right no-overflow"
                                 >
                                     <TransitionWrapper
-                                        ref="askTransition"
+                                        ref={this.askTransition}
                                         className="orderbook clickable"
                                         component="tbody"
                                         transitionName="newrow"
@@ -1206,14 +1233,14 @@ class OrderBook extends React.Component {
                                     </span>
                                 </div>
                             </div>
-                            <div className="market-right-padding-only">
+                            <div className="market-right-padding-only" style={{ paddingRight: "0.6rem" }} >
                                 <table className="table order-table table-hover fixed-table text-right">
                                     {flipOrderBook ? rightHeader : leftHeader}
                                 </table>
                             </div>
                             <div
                                 className="grid-block"
-                                ref="hor_bids"
+                                ref={this.hor_bids}
                                 style={{
                                     paddingRight: "0.6rem",
                                     overflow: "hidden",
@@ -1226,7 +1253,7 @@ class OrderBook extends React.Component {
                                     className="table order-table no-stripes table-hover fixed-table text-right no-overflow"
                                 >
                                     <TransitionWrapper
-                                        ref="bidTransition"
+                                        ref={this.bidTransition}
                                         className="orderbook clickable"
                                         component="tbody"
                                         transitionName="newrow"
@@ -1263,28 +1290,30 @@ class OrderBook extends React.Component {
             return (
                 <div className="order-table-container">
                     <StickyTable
-                        stickyColumnCount={0}
+                        borderWidth="0px"
+                        borderColor="grey"
+                        leftStickyColumnCount={0}
                         className="order-table table"
                         ref={this.verticalStickyTable}
                     >
-                        <div className="sticky-table-row top-header">
-                            <div className="cell header-cell left">
+                        <Row className="top-header sticky-table-header">
+                            <Cell className="cell header-cell left">
                                 <span className="header-sub-title">
                                     <AssetName name={baseSymbol} />
                                 </span>
-                            </div>
-                            <div className="cell header-cell">
+                            </Cell>
+                            <Cell className="cell header-cell">
                                 <span className="header-sub-title">
                                     <AssetName name={quoteSymbol} />
                                 </span>
-                            </div>
-                            <div className="cell header-cell right">
+                            </Cell>
+                            <Cell className="cell header-cell right">
                                 <Translate
                                     className="header-sub-title"
                                     content="exchange.price"
                                 />
-                            </div>
-                        </div>
+                            </Cell>
+                        </Row>
                         {orderBookReversed ? (
                             <OrderRows
                                 id="top-order-rows"
@@ -1293,26 +1322,28 @@ class OrderBook extends React.Component {
                                 isBid={true}
                             />
                         ) : (
+                            // bidRows
                             <OrderRows
                                 id="top-order-rows"
                                 noOrders={noOrders}
                                 orderRows={askRows}
                                 isBid={false}
                             />
+                            // askRows
                         )}
 
                         {noOrders ? (
-                            <div
+                            <Row
                                 className="sticky-table-row"
                                 ref={this.centerText}
                             >
-                                <div className="cell" />
-                                <div className="cell no-orders padtop">
+                                <Cell className="cell" />
+                                <Cell className="cell no-orders padtop">
                                     <Translate content="exchange.no_orders" />
-                                </div>
-                            </div>
+                                </Cell>
+                            </Row>
                         ) : (
-                            <div
+                            <Row
                                 className="sticky-table-row orderbook-latest-price"
                                 ref={this.centerText}
                                 style={{padding: 0}}
@@ -1320,7 +1351,7 @@ class OrderBook extends React.Component {
                                 //    "walkthrough.vertical_order"
                                 //)}
                             >
-                                <div className="cell right">
+                                <Cell className="cell right">
                                     <span
                                         className="clickable left"
                                         onClick={this.toggleSpreadValue}
@@ -1333,8 +1364,8 @@ class OrderBook extends React.Component {
                                             {!!spread ? spread : "0"}
                                         </span>
                                     </span>
-                                </div>
-                                <div className="cell cell-center">
+                                </Cell>
+                                <Cell className="cell cell-center">
                                     <span style={{width: 75}}>
                                         {!this.props.hideFunctionButtons ? (
                                             <Icon
@@ -1387,8 +1418,8 @@ class OrderBook extends React.Component {
                                             />
                                         )}
                                     </span>
-                                </div>
-                                <div
+                                </Cell>
+                                <Cell
                                     className="cell"
                                     style={{textAlign: "center"}}
                                 >
@@ -1409,8 +1440,8 @@ class OrderBook extends React.Component {
                                             </span>
                                         </span>
                                     )}
-                                </div>
-                            </div>
+                                </Cell>
+                            </Row>
                         )}
 
                         {orderBookReversed ? (
@@ -1420,11 +1451,13 @@ class OrderBook extends React.Component {
                                 isBid={false}
                             />
                         ) : (
+                            // askRows
                             <OrderRows
                                 noOrders={noOrders}
                                 orderRows={bidRows}
                                 isBid={true}
                             />
+                            // bidRows
                         )}
                     </StickyTable>
                 </div>

@@ -105,11 +105,11 @@ class AssetActions {
             },
             bidder: account_id,
             additional_collateral: {
-                amount: coll * core_precision,
+                amount: Math.round(coll * core_precision),
                 asset_id: core.get("id")
             },
             debt_covered: {
-                amount: debt * asset_precision,
+                amount: Math.round(debt * asset_precision),
                 asset_id: asset.get("id")
             },
             extensions: []
@@ -203,6 +203,35 @@ class AssetActions {
         };
     }
 
+    claimCollateralFees(account_id, asset, backingAsset, claimFeesAmountAsset) {
+        let tr = WalletApi.new_transaction();
+
+        tr.add_type_operation("asset_claim_fees", {
+            fee: {
+                amount: 0,
+                asset_id: 0
+            },
+            issuer: account_id,
+            amount_to_claim: {
+                asset_id: backingAsset.asset_id,
+                amount: claimFeesAmountAsset.getAmount()
+            },
+            extensions: {
+                claim_from_asset_id: asset.get("id")
+            }
+        });
+        return dispatch => {
+            return WalletDb.process_transaction(tr, null, true)
+                .then(() => {
+                    dispatch(true);
+                })
+                .catch(error => {
+                    console.log("----- claimFees error ----->", error);
+                    dispatch(false);
+                });
+        };
+    }
+
     assetGlobalSettle(asset, account_id, price) {
         let tr = WalletApi.new_transaction();
 
@@ -254,7 +283,6 @@ class AssetActions {
         );
         let tr = WalletApi.new_transaction();
         let precision = utils.get_asset_precision(createObject.precision);
-
         big.config({DECIMAL_PLACES: createObject.precision});
         let max_supply = new big(createObject.max_supply)
             .times(precision)
@@ -262,11 +290,9 @@ class AssetActions {
         let max_market_fee = new big(createObject.max_market_fee || 0)
             .times(precision)
             .toString();
-
         let corePrecision = utils.get_asset_precision(
             ChainStore.getAsset(cer.base.asset_id).get("precision")
         );
-
         let operationJSON = {
             fee: {
                 amount: 0,
@@ -297,18 +323,21 @@ class AssetActions {
                 blacklist_markets: [],
                 description: description,
                 extensions: {
-                    reward_percent: createObject.reward_percent * 100 || 0,
-                    whitelist_market_fee_sharing: []
+                    reward_percent: createObject.reward_percent
+                        ? createObject.reward_percent * 100
+                        : undefined,
+                    whitelist_market_fee_sharing: [],
+                    taker_fee_percent: createObject.taker_fee_percent
+                        ? createObject.taker_fee_percent * 100
+                        : undefined
                 }
             },
             is_prediction_market: is_prediction_market,
             extensions: null
         };
-
         if (isBitAsset) {
             operationJSON.bitasset_opts = bitasset_opts;
         }
-
         tr.add_type_operation("asset_create", operationJSON);
         return dispatch => {
             return WalletDb.process_transaction(tr, null, true)
@@ -383,7 +412,9 @@ class AssetActions {
             if (auths.whitelist_market_fee_sharing) {
                 extensions.whitelist_market_fee_sharing = auths.whitelist_market_fee_sharing.toJS();
             }
-
+            if (update.taker_fee_percent !== undefined) {
+                extensions.taker_fee_percent = update.taker_fee_percent * 100;
+            }
             let updateObject = {
                 fee: {
                     amount: 0,
@@ -583,9 +614,64 @@ class AssetActions {
         };
     }
 
+    getAssetsByIssuer(issuer, count, start, includeGateways = false){
+        let id = issuer + "_" + count;
+        console.log("getAssetsByIssuer id = ", id);
+        return dispatch => {
+            if (!inProgress[id]) {
+                let assets;
+                inProgress[id] = true;
+                dispatch({loading: true});
+
+                assets = Apis.instance()
+                    .db_api()
+                    .exec("get_assets_by_issuer", [issuer, start, count])
+                    .then(assets => {
+                        let bitAssetIDS = [];
+                        let dynamicIDS = [];
+
+                        assets.forEach(asset => {
+                            ChainStore._updateObject(asset, false);
+                            dynamicIDS.push(asset.dynamic_asset_data_id);
+                            });
+                        let dynamicPromise = Apis.instance()
+                            .db_api()
+                            .exec("get_objects", [dynamicIDS]);
+                        Promise.all([dynamicPromise]).then(
+                            results => {
+                                delete inProgress[id];
+                                dispatch({
+                                    assets: assets,
+                                    dynamic: results[0],
+                                    loading: false
+                                });
+                                return assets && assets.length;
+                            }
+                        );
+                    })
+                    .catch(error => {
+                        console.log(
+                            "Error in AssetActions.getAssetList: ",
+                            error
+                        );
+                        dispatch({loading: false});
+                        delete inProgress[id];
+                    });
+
+                // Fetch next 10 assets for each gateAsset on request
+                if (includeGateways) {
+                    gatewayPrefixes.forEach(a => {
+                        this.getAssetList(a + "." + start, 10);
+                    });
+                }
+
+                return assets;
+            }
+        };
+    }
+
     lookupAsset(symbol, searchID) {
         let asset = ChainStore.getAsset(symbol);
-
         if (asset) {
             return {
                 assets: [asset],

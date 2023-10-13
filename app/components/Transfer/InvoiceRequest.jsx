@@ -28,7 +28,7 @@ class InvoiceRequest extends React.Component {
             recipient_name: null,
             recipient_name_account: null,
             currency: "BTS",
-            defaultAssets: ["BTS", "CNY", "USD"]
+            defaultAssets: ["BTS", "CNY", "USD", "XBTSX.USDT", "HONEST.USD", "GDEX.USDT", "HONEST.CNY", "URTHR", "SKULD", "VERTHANDI", "HERTZ"]
         };
     }
 
@@ -50,7 +50,7 @@ class InvoiceRequest extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps, nextContext) {
+    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
         if (this.state.recipient_name == null && this.props.currentAccount) {
             this.setState({
                 recipient_name: this.props.currentAccount.get("name")

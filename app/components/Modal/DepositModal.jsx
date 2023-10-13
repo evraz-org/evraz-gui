@@ -35,7 +35,7 @@ class DepositModalContent extends DecimalChecker {
         this.props.hideModal();
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         let {asset} = this.props;
         this._setDepositAsset(asset);
     }
@@ -184,7 +184,13 @@ class DepositModalContent extends DecimalChecker {
         this._getDepositConfirmation(backingAsset);
 
         let depositAddress;
-        if (selectedGateway && selectedAsset) {
+        if (
+            selectedGateway &&
+            selectedAsset &&
+            (gatewayStatus[selectedGateway].hasOwnProperty("depositCaching")
+                ? gatewayStatus[selectedGateway].depositCaching
+                : true)
+        ) {
             depositAddress = this.deposit_address_cache.getCachedInputAddress(
                 selectedGateway.toLowerCase(),
                 account,
@@ -206,6 +212,14 @@ class DepositModalContent extends DecimalChecker {
                     gatewayStatus[selectedGateway].fixedMemo["prepend_btsid"] +
                     accountMap.get("id").replace("1.2.", "") +
                     gatewayStatus[selectedGateway].fixedMemo["append"];
+            }
+            let tagText;
+            if (!!backingAsset.memoType && backingAsset.memoType === "tagid") {
+                let accountMap = ChainStore.getAccount(account, false);
+                tagText =
+                    gatewayStatus[selectedGateway].fixedMemo["prepend_btsid"] +
+                    accountMap.get("id").replace("1.2.", "") +
+                    gatewayStatus[selectedGateway].fixedMemo["append"];
             } else {
                 memoText =
                     gatewayStatus[selectedGateway].fixedMemo[
@@ -213,11 +227,17 @@ class DepositModalContent extends DecimalChecker {
                     ] +
                     account +
                     gatewayStatus[selectedGateway].fixedMemo["append"];
+                tagText =
+                    gatewayStatus[selectedGateway].fixedMemo[
+                        "prepend_default"
+                    ] +
+                    account +
+                    gatewayStatus[selectedGateway].fixedMemo["append"];
             }
-
             depositAddress = {
                 address: backingAsset.gatewayWallet,
-                memo: memoText
+                memo: memoText,
+                tag: tagText
             };
 
             this.setState({
@@ -452,6 +472,34 @@ class DepositModalContent extends DecimalChecker {
                                     </div>
                                 </div>
                             ) : null}
+                            {depositAddress.tag ? (
+                                <div className="grid-block container-row">
+                                    <div style={{paddingRight: "1rem"}}>
+                                        <CopyButton
+                                            text={depositAddress.tag}
+                                            className={"copyIcon"}
+                                        />
+                                    </div>
+                                    <div>
+                                        <Translate
+                                            component="div"
+                                            style={{
+                                                fontSize: "0.8rem",
+                                                fontWeight: "bold",
+                                                paddingBottom: "0.3rem"
+                                            }}
+                                            unsafe
+                                            content="gateway.purchase_notice_tag"
+                                        />
+                                        <div
+                                            className="modal__highlight"
+                                            style={{wordBreak: "break-all"}}
+                                        >
+                                            {depositAddress.tag}
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : null}
                             {depositConfirmation ? (
                                 <div
                                     style={{
@@ -465,7 +513,7 @@ class DepositModalContent extends DecimalChecker {
                                     "irreversible" ? (
                                         <Translate content="gateway.gateway_deposit.confirmations.last_irreversible" />
                                     ) : depositConfirmation.type ===
-                                    "blocks" ? (
+                                      "blocks" ? (
                                         <Translate
                                             content="gateway.gateway_deposit.confirmations.n_blocks"
                                             blocks={depositConfirmation.value}
@@ -524,6 +572,7 @@ export default class DepositModal extends React.Component {
     render() {
         return (
             <Modal
+                destroyOnClose={true}
                 title={
                     this.props.account
                         ? counterpart.translate("modal.deposit.header", {

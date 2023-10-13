@@ -4,11 +4,13 @@
  */
 
 import {
+    ioxbankAPIs,
     rudexAPIs,
     bitsparkAPIs,
     openledgerAPIs,
     cryptoBridgeAPIs,
     gdex2APIs,
+    pirateCashAPIs,
     xbtsxAPIs,
     citadelAPIs
 } from "api/apiConfig";
@@ -86,6 +88,27 @@ const _isEnabled = gatewayKey => {
 };
 
 export const availableGateways = {
+    IOB: {
+        id: "IOB",
+        name: "ioxbank",
+        baseAPI: ioxbankAPIs,
+        isEnabled: _isEnabled("IOB"),
+        isSimple: true,
+        selected: false,
+        simpleAssetGateway: true,
+        fixedMemo: {
+            prepend_default: "dex:",
+            prepend_btsid: "",
+            append: ""
+        },
+        addressValidatorMethod: "POST",
+        options: {
+            enabled: false,
+            selected: false
+        },
+        landing: "https://ioxbank.com",
+        wallet: "https://dex.iobanker.com/"
+    },
     OPEN: {
         id: "OPEN",
         name: "OpenLedger",
@@ -96,8 +119,7 @@ export const availableGateways = {
             enabled: false,
             selected: false
         },
-        landing:
-            "https://dex.openledger.io/news/ol-dex-is-closing-all-activities/",
+        landing: "Shutdown",
         wallet: "Shutdown"
     },
     RUDEX: {
@@ -118,8 +140,8 @@ export const availableGateways = {
             enabled: false,
             selected: false
         },
-        landing: "https://rudex.org/",
-        wallet: "https://market.rudex.org/"
+        landing: "Shutdown",
+        wallet: "Shutdown"
     },
     SPARKDEX: {
         id: "SPARKDEX",
@@ -155,16 +177,33 @@ export const availableGateways = {
         id: "GDEX",
         name: "GDEX",
         baseAPI: gdex2APIs,
-        isEnabled: _isEnabled("GDEX"),
+        isEnabled: () => false,
         options: {
             enabled: false,
             selected: false
         },
-        wallet: "https://www.52bts.net/"
+        landing: "https://bitsharestalk.org/index.php?topic=33861",
+        wallet: "Only manual deposit / withdraw",
+        comment: "Only manual deposit / withdraw"
+    },
+    PIRATE: {
+        id: "PIRATE",
+        name: "PirateCash",
+        baseAPI: pirateCashAPIs,
+        isEnabled: _isEnabled("PIRATE"),
+        isSimple: true,
+        selected: false,
+        addressValidatorMethod: "POST",
+        options: {
+            enabled: false,
+            selected: false
+        },
+        landing: "https://piratecash.net",
+        wallet: "https://wallet.piratecash.net/"
     },
     XBTSX: {
         id: "XBTSX",
-        name: "XBTS",
+        name: "XBTS Native Chains",
         baseAPI: xbtsxAPIs,
         isEnabled: _isEnabled("XBTSX"),
         isSimple: true,
@@ -188,8 +227,8 @@ export const availableGateways = {
             enabled: false,
             selected: false
         },
-        landing: "https://citadel.li/",
-        wallet: "Disabled"
+        landing: "Shutdown",
+        wallet: "Shutdown"
     }
 };
 
