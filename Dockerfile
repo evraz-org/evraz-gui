@@ -1,11 +1,16 @@
-FROM node:14-alpine AS dependencies
-RUN apk add python make gcc g++ git
+FROM node:16-alpine AS dependencies
+# Install python/pip
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
+RUN apk add make gcc g++ git
 WORKDIR /app
 COPY . .
 RUN yarn
 RUN npm run build
 
-FROM node:14-alpine AS release
+FROM node:16-alpine AS release
 WORKDIR /app
 COPY --from=dependencies /app/build/dist* /app/
 ENV NGINX_VERSION=1.19.0
@@ -55,7 +60,7 @@ RUN \
     --with-stream_realip_module \
     --with-http_slice_module \
     --with-http_v2_module && \
-  make && \
+  make CFLAGS=-Wno-error CPPFLAGS=-Wno-error CXXFLAGS=-Wno-error && \
   make install && \
   sed -i -e 's/#access_log  logs\/access.log  main;/access_log \/dev\/stdout;/' -e 's/#error_log  logs\/error.log  notice;/error_log stderr notice;/' /etc/nginx/nginx.conf && \
   addgroup -S nginx && \
