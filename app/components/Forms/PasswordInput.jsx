@@ -157,6 +157,27 @@ class PasswordInput extends Component {
         );
     }
 
+    renderConfirmPasswordEye(confirmMatch) {
+        const {confirmPasswordVisible} = this.state;
+        return !confirmPasswordVisible ? (
+            <span
+                className="confirm-password-eye"
+                style={{marginRight: confirmMatch ? "40px" : "10px"}}
+                onClick={() => this.setState({confirmPasswordVisible: true})}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="confirm-password-eye"
+                style={{marginRight: confirmMatch ? "40px" : "10px"}}
+                onClick={() => this.setState({confirmPasswordVisible: false})}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
+    }
+
     render() {
         let {score, value} = this.state;
         const {copy, visible, readonly} = this.props;
@@ -174,7 +195,7 @@ class PasswordInput extends Component {
             !this.props.noValidation &&
             !password_error &&
             this.state.value.length > 0 &&
-                this.state.value.length < this.props.passwordLength
+            this.state.value.length < this.props.passwordLength
         )
             password_error = (
                 <div>
@@ -278,11 +299,16 @@ class PasswordInput extends Component {
                             <input
                                 id="confirm_password"
                                 name="confirm_password"
-                                type="password"
+                                type={
+                                    this.state.confirmPasswordVisible
+                                        ? "text"
+                                        : "password"
+                                }
                                 ref="confirm_password"
                                 autoComplete="confirm-password"
                                 onChange={this.handleChange}
                             />
+                            {this.renderConfirmPasswordEye(confirmMatch)}
                             {confirmMatch ? (
                                 <div className={"ok-indicator success"}>OK</div>
                             ) : null}

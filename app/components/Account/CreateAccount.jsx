@@ -35,7 +35,8 @@ class CreateAccount extends React.Component {
             loading: false,
             hide_refcode: true,
             show_identicon: false,
-            step: 1
+            step: 1,
+            passwordInputVisible: false
         };
         this.onFinishConfirm = this.onFinishConfirm.bind(this);
 
@@ -81,7 +82,10 @@ class CreateAccount extends React.Component {
     }
 
     onPasswordChange(e) {
-        this.setState({validPassword: e.valid});
+        this.setState({
+            validPassword: e.valid,
+            passwordInputVisible: e.visible
+        });
     }
 
     onFinishConfirm(confirm_store_state) {
@@ -283,6 +287,7 @@ class CreateAccount extends React.Component {
                 {hasWallet ? null : (
                     <PasswordInput
                         ref="password"
+                        visible={this.state.passwordInputVisible}
                         confirmation={true}
                         onChange={this.onPasswordChange.bind(this)}
                         noLabel
