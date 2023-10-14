@@ -232,7 +232,7 @@ class PasswordInput extends Component {
             <div className="account-selector">
                 <div className={password_class_name}>
                     {/* {noLabel ? null : <Translate component="label" content="wallet.password" />} */}
-                    <section>
+                    <section style={{position: "relative", maxWidth: "30rem"}}>
                         <label
                             className={
                                 "left-label " + (this.props.labelClass || "")
