@@ -21,6 +21,7 @@ import CopyButton from "../Utility/CopyButton";
 import {withRouter} from "react-router-dom";
 import {scroller} from "react-scroll";
 import {Notification, Tooltip} from "bitshares-ui-style-guide";
+import PasswordInput from "./../Forms/PasswordInput";
 
 class CreateAccountPassword extends React.Component {
     constructor() {
@@ -39,10 +40,14 @@ class CreateAccountPassword extends React.Component {
                 0,
                 45
             ),
+            password: "",
             confirm_password: "",
             understand_1: false,
             understand_2: false,
-            understand_3: false
+            understand_3: false,
+            passwordVisible: false,
+            passwordInputVisible: false,
+            passwordInputValid: false
         };
         this.onFinishConfirm = this.onFinishConfirm.bind(this);
 
@@ -87,7 +92,12 @@ class CreateAccountPassword extends React.Component {
         if (!firstAccount) {
             valid = valid && this.state.registrar_account;
         }
-        return valid && this.state.understand_1 && this.state.understand_2;
+        return (
+            valid &&
+            this.state.passwordInputValid &&
+            this.state.understand_1 &&
+            this.state.understand_2
+        );
     }
 
     onAccountNameChange(e) {
@@ -194,8 +204,7 @@ class CreateAccountPassword extends React.Component {
         // if (WalletDb.getWallet()) {
         //     this.createAccount(account_name);
         // } else {
-        let password = this.state.generatedPassword;
-        this.createAccount(account_name, password);
+        this.createAccount(account_name, this.state.password);
     }
 
     onRegistrarAccountChange(registrar_account) {
@@ -215,9 +224,28 @@ class CreateAccountPassword extends React.Component {
                     : !this.state[value],
             validPassword:
                 value === "confirm_password"
-                    ? e.target.value === this.state.generatedPassword
+                    ? e.target.value === this.state.password
                     : this.state.validPassword
         });
+    }
+
+    renderPasswordEye() {
+        const {passwordVisible} = this.state;
+        return !passwordVisible ? (
+            <span
+                className="input-password-eye"
+                onClick={() => this.setState({passwordVisible: true})}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="input-password-eye"
+                onClick={() => this.setState({passwordVisible: false})}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
     }
 
     _renderAccountCreateForm() {
@@ -308,11 +336,34 @@ class CreateAccountPassword extends React.Component {
                     </section>
 
                     <section>
+                        <PasswordInput
+                            ref="password"
+                            visible={this.state.passwordInputVisible}
+                            confirmation={false}
+                            value={this.state.password}
+                            onChange={state =>
+                                this.setState({
+                                    passwordInputValid: state.valid,
+                                    password: state.value,
+                                    passwordInputVisible: state.visible
+                                })
+                            }
+                            noLabel
+                            passwordLength={12}
+                            checkStrength
+                        />
+                    </section>
+
+                    <section>
                         <label className="left-label">
                             <Translate content="wallet.confirm_password" />
                         </label>
                         <input
-                            type="password"
+                            type={
+                                !this.state.passwordVisible
+                                    ? "password"
+                                    : "text"
+                            }
                             name="password"
                             id="password"
                             value={this.state.confirm_password}
@@ -321,9 +372,9 @@ class CreateAccountPassword extends React.Component {
                                 "confirm_password"
                             )}
                         />
+                        {this.renderPasswordEye()}
                         {this.state.confirm_password &&
-                        this.state.confirm_password !==
-                            this.state.generatedPassword ? (
+                        this.state.confirm_password !== this.state.password ? (
                             <div className="has-error">
                                 <Translate content="wallet.confirm_error" />
                             </div>
@@ -545,7 +596,7 @@ class CreateAccountPassword extends React.Component {
                                     textAlign: "center"
                                 }}
                             >
-                                {this.state.generatedPassword}
+                                {this.state.password}
                             </p>
                         </div>
                     )}

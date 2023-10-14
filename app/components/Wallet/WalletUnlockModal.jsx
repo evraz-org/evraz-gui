@@ -413,7 +413,7 @@ class WalletUnlockModal extends React.Component {
         }
     };
 
-    renderPasswordEve() {
+    renderPasswordEye() {
         const {passwordVisible} = this.state;
         return !passwordVisible ? (
             <span
@@ -608,7 +608,7 @@ class WalletUnlockModal extends React.Component {
                                         this.password_input = input;
                                     }}
                                 />
-                                {this.renderPasswordEve()}
+                                {this.renderPasswordEye()}
                             </Form.Item>
                         </div>
                     ) : (
@@ -693,7 +693,7 @@ class WalletUnlockModal extends React.Component {
                                         this.password_input2 = input;
                                     }}
                                 />
-                                {this.renderPasswordEve()}
+                                {this.renderPasswordEye()}
                             </Form.Item>
                         </div>
                     )}

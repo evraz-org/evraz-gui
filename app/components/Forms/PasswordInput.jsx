@@ -5,6 +5,7 @@ import cname from "classnames";
 import Translate from "react-translate-component";
 import zxcvbnAsync from "zxcvbn-async";
 import CopyButton from "../Utility/CopyButton";
+import Icon from "../Icon/Icon";
 
 class PasswordInput extends Component {
     static propTypes = {
@@ -121,6 +122,41 @@ class PasswordInput extends Component {
         if (this.props.onEnter && e.keyCode === 13) this.props.onEnter(e);
     }
 
+    renderPasswordEye() {
+        const {visible, value} = this.state;
+        return !visible ? (
+            <span
+                className="input-password-eye"
+                onClick={() => {
+                    if (this.props.onChange)
+                        this.props.onChange({
+                            valid: this.valid(),
+                            value: value,
+                            visible: true
+                        });
+                    this.setState({visible: true});
+                }}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="input-password-eye"
+                onClick={() => {
+                    if (this.props.onChange)
+                        this.props.onChange({
+                            valid: this.valid(),
+                            value: value,
+                            visible: false
+                        });
+                    this.setState({visible: false});
+                }}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
+    }
+
     render() {
         let {score, value} = this.state;
         const {copy, visible, readonly} = this.props;
@@ -137,8 +173,8 @@ class PasswordInput extends Component {
         if (
             !this.props.noValidation &&
             !password_error &&
-            (this.state.value.length > 0 &&
-                this.state.value.length < this.props.passwordLength)
+            this.state.value.length > 0 &&
+                this.state.value.length < this.props.passwordLength
         )
             password_error = (
                 <div>
@@ -201,6 +237,7 @@ class PasswordInput extends Component {
                                 value={value}
                                 readOnly={readonly}
                             />
+                            {this.renderPasswordEye()}
                             {copy && (
                                 <CopyButton
                                     text={value}
@@ -217,8 +254,8 @@ class PasswordInput extends Component {
                                     score === 5
                                         ? "high"
                                         : score === 4
-                                            ? "medium"
-                                            : "low"
+                                        ? "medium"
+                                        : "low"
                                 }
                                 value={score}
                                 max="5"
