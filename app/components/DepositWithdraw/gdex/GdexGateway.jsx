@@ -77,8 +77,6 @@ class GdexGateway extends React.Component {
         let firstTimeCoinName = null;
         if (state.action == "deposit") {
             firstTimeCoinName = "BTC";
-        } else {
-            firstTimeCoinName = "GDEX.BTC";
         }
         let firstTimeCoinId = 1002;
         let activeCoinName = cachedCoinName

@@ -144,23 +144,7 @@ export function getMyMarketsQuotes() {
             "USD",
             "USD1.0"
         ],
-        gdexTokens: [
-            "GDEX.BTC",
-            "GDEX.BTO",
-            "GDEX.EOS",
-            "GDEX.ETH",
-            "GDEX.BKBT",
-            "GDEX.GXC",
-            "GDEX.SEER",
-            "GDEX.FOTA",
-            "GDEX.JRC",
-            "GDEX.EOSDAC",
-            "GDEX.MTS",
-            "GDEX.GUSD",
-            "GDEX.IQ",
-            "GDEX.NULS",
-            "GDEX.USDT"
-        ],
+        gdexTokens: [],
         openledgerTokens: [],
         rudexTokens: [],
         piratecashTockens: [
@@ -323,12 +307,8 @@ export function getFeaturedMarkets(quotes = []) {
         ["USD", "BTS"],
         ["USD", "GOLD"],
         ["USD", "HERO"],
-        ["USD", "GDEX.BTC"],
-        ["USD", "GDEX.ETH"],
-        ["USD", "GDEX.EOS"],
-        ["USD", "GDEX.BTO"],
         ["USD", "HONEST.BTC"],
-        ["USD", "HONEST.USD"],        
+        ["USD", "HONEST.USD"],
         ["USD", "HONEST.BTCSHORT"],
         ["USD", "HONEST.USDSHORT"],
         ["USD", "HERTZ"],
@@ -339,16 +319,8 @@ export function getFeaturedMarkets(quotes = []) {
         ["CNY", "USD"],
         ["CNY", "YOYOW"],
         ["CNY", "OCT"],
-        ["CNY", "GDEX.BTC"],
-        ["CNY", "GDEX.ETH"],
-        ["CNY", "GDEX.EOS"],
-        ["CNY", "GDEX.BTO"],
-        ["CNY", "GDEX.SEER"],
-        ["CNY", "GDEX.BKBT"],
-        ["CNY", "GDEX.USDT"],
-        ["CNY", "GDEX.GXC"],
         ["CNY", "HONEST.BTC"],
-        ["CNY", "HONEST.USD"],        
+        ["CNY", "HONEST.USD"],
         ["CNY", "HONEST.BTCSHORT"],
         ["CNY", "HONEST.USDSHORT"],
         ["CNY", "HONEST.CNY"],
@@ -361,11 +333,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "OCT"],
         ["BTS", "SILVER"],
         ["BTS", "GOLD"],
-        ["BTS", "GDEX.BTC"],
-        ["BTS", "GDEX.ETH"],
-        ["BTS", "GDEX.EOS"],
-        ["BTS", "GDEX.BTO"],
-        ["BTS", "GDEX.USDT"],
         ["BTS", "XBTSX.BTC"],
         ["BTS", "XBTSX.ETH"],
         ["BTS", "XBTSX.EUR"],
@@ -386,8 +353,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["EVRAZ", "RUDEX.BTC"],
         ["EVRAZ", "XBTSX.BTC"],
         ["EVRAZ", "XBTSX.STH"],
-        ["EVRAZ", "CRUDE.NGN"]
-        ["BTS", "HONEST"],
+        ["EVRAZ", "CRUDE.NGN"][("BTS", "HONEST")],
         ["BTS", "HONEST.MONEY"],
         ["BTS", "HONEST.AGORISM"],
         ["BTS", "HONEST.DEV"],
@@ -442,7 +408,7 @@ export function getFeaturedMarkets(quotes = []) {
         ["BTS", "HERTZ"],
         ["BTS", "URTHR"],
         ["BTS", "SKULD"],
-        ["BTS", "VERTHANDI"],
+        ["BTS", "VERTHANDI"]
     ].filter(a => {
         if (!quotes.length) return true;
         return quotes.indexOf(a[0]) !== -1;
@@ -520,6 +486,5 @@ export function getConfigurationAsset() {
 }
 
 export function getHiveNewsTag() {
-    return 'bitshares';
+    return "bitshares";
 }
-
