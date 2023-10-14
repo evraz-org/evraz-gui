@@ -66,7 +66,8 @@ class WalletUnlockModal extends React.Component {
             stopAskingForBackup: false,
             rememberMe: WalletUnlockStore.getState().rememberMe,
             focusedOnce: false,
-            isAutoLockVisible: false
+            isAutoLockVisible: false,
+            passwordVisible: false
         };
     };
 
@@ -412,6 +413,25 @@ class WalletUnlockModal extends React.Component {
         }
     };
 
+    renderPasswordEve() {
+        const {passwordVisible} = this.state;
+        return !passwordVisible ? (
+            <span
+                className="password-eye"
+                onClick={() => this.setState({passwordVisible: true})}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="password-eye"
+                onClick={() => this.setState({passwordVisible: false})}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
+    }
+
     render() {
         const {
             backup,
@@ -576,7 +596,11 @@ class WalletUnlockModal extends React.Component {
                                 help={passwordError || ""}
                             >
                                 <Input
-                                    type="password"
+                                    type={
+                                        !this.state.passwordVisible
+                                            ? "password"
+                                            : "text"
+                                    }
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
                                     onPressEnter={this.handleLogin}
@@ -584,6 +608,7 @@ class WalletUnlockModal extends React.Component {
                                         this.password_input = input;
                                     }}
                                 />
+                                {this.renderPasswordEve()}
                             </Form.Item>
                         </div>
                     ) : (
@@ -653,7 +678,11 @@ class WalletUnlockModal extends React.Component {
                                 help={errorMessage}
                             >
                                 <Input
-                                    type="password"
+                                    type={
+                                        !this.state.passwordVisible
+                                            ? "password"
+                                            : "text"
+                                    }
                                     value={this.state.password}
                                     placeholder={counterpart.translate(
                                         "wallet.enter_password"
@@ -664,6 +693,7 @@ class WalletUnlockModal extends React.Component {
                                         this.password_input2 = input;
                                     }}
                                 />
+                                {this.renderPasswordEve()}
                             </Form.Item>
                         </div>
                     )}

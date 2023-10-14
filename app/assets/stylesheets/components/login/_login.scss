@@ -298,3 +298,12 @@
         }
     }
 }
+
+.password-eye {
+    float: right;
+    margin-top: -25px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
