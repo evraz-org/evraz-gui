@@ -496,10 +496,10 @@ class BuySell extends React.Component {
             isBid && quoteMarketFee
                 ? quoteMarketFee
                 : !isBid && baseMarketFee
-                    ? baseMarketFee
-                    : quoteMarketFee || baseMarketFee
-                        ? emptyCell
-                        : null;
+                ? baseMarketFee
+                : quoteMarketFee || baseMarketFee
+                ? emptyCell
+                : null;
 
         let hasBalance = isBid
             ? balanceAmount.getAmount({real: true}) >= parseFloat(total)
@@ -525,10 +525,10 @@ class BuySell extends React.Component {
         let disabledText = invalidPrice
             ? counterpart.translate("exchange.invalid_price")
             : invalidAmount
-                ? counterpart.translate("exchange.invalid_amount")
-                : noBalance
-                    ? counterpart.translate("exchange.no_balance")
-                    : null;
+            ? counterpart.translate("exchange.invalid_amount")
+            : noBalance
+            ? counterpart.translate("exchange.no_balance")
+            : null;
 
         // Fee asset selection
         if (
@@ -1038,8 +1038,8 @@ class BuySell extends React.Component {
                                             value: isPredictionMarket
                                                 ? "exchange.short"
                                                 : isBid
-                                                    ? "exchange.buy"
-                                                    : "exchange.sell",
+                                                ? "exchange.buy"
+                                                : "exchange.sell",
                                             arg: "direction"
                                         }
                                     ]}
@@ -1257,7 +1257,13 @@ class BuySell extends React.Component {
                                                 type="primary"
                                                 style={{margin: 5}}
                                             >
-                                                {isBid ? "Buy" : "Sell"}
+                                                <b>
+                                                    {counterpart.translate(
+                                                        isBid
+                                                            ? "exchange.buy"
+                                                            : "exchange.sell"
+                                                    )}
+                                                </b>
                                             </Button>
                                         </Tooltip>
                                         {/* <Button
@@ -1559,16 +1565,15 @@ class BuySell extends React.Component {
                     </form>
                 </div>
 
-                {isGloballySettled &&
-                    !!this.props.currentAccount && (
-                        <SettleModal
-                            visible={this.state.isSettleModalVisible}
-                            hideModal={this.hideSettleModal}
-                            showModal={this.showSettleModal}
-                            asset={otherAsset.get("id")}
-                            account={this.props.currentAccount}
-                        />
-                    )}
+                {isGloballySettled && !!this.props.currentAccount && (
+                    <SettleModal
+                        visible={this.state.isSettleModalVisible}
+                        hideModal={this.hideSettleModal}
+                        showModal={this.showSettleModal}
+                        asset={otherAsset.get("id")}
+                        account={this.props.currentAccount}
+                    />
+                )}
             </div>
         );
     }

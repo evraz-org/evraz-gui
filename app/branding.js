@@ -113,7 +113,21 @@ export function getMyMarketsBases() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["EVRAZ", "BTS", "EUR", "RUBLE", "GBP", "CNY", "JPY"];
+    return [
+        "EVRAZ",
+        "BTS",
+        "EUR",
+        "RUBLE",
+        "GBP",
+        "CNY",
+        "JPY",
+        "XBTSX.BTC",
+        "USDIGI",
+        "EUROLUX",
+        "ALTIN",
+        "ALTIN.TRY",
+        "ALTIN.RUB"
+    ];
 }
 
 /**
