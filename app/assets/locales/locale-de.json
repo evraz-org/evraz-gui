@@ -2335,7 +2335,8 @@
         "wallet_required_text": "Damit Sie die Sicherung wiederherstellen können, müssen Sie auf eine lokale Wallet (digitale Brieftasche) wechseln. (Klicken auf darunter liegenden Knopf)",
         "wallet_text": "Detaileinstellungen Ihrer lokalen Wallet.",
         "wallets": "Wallets",
-        "yes": "Ja"
+        "yes": "Ja",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

@@ -2329,7 +2329,8 @@
         "wallet_required_text": "Per ripristinare un backup devi prima passaere alla modalità portafoglio, cliccando il pulsante sotto",
         "wallet_text": "Controlla i dettagli del tuo portafoglio.",
         "wallets": "Portafogli",
-        "yes": "Sì"
+        "yes": "Sì",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

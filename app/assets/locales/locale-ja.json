@@ -2329,7 +2329,8 @@
         "wallet_required_text": "バックアップをリストアするには、まずウォレットモデルに切り替える必要があります。下のボタンをクリックしてください。",
         "wallet_text": "ウォレットの詳細を制御する。",
         "wallets": "ウォレット",
-        "yes": "はい"
+        "yes": "はい",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

@@ -2335,7 +2335,8 @@
         "wallet_required_text": "In order to restore a backup you will need to switch to a local wallet first, do so by clicking the button below",
         "wallet_text": "Control the details of your local wallet.",
         "wallets": "Wallets",
-        "yes": "Yes"
+        "yes": "Yes",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

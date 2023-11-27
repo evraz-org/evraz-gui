@@ -2335,7 +2335,8 @@
         "wallet_required_text": "Para restaurar una copia de seguridad, primero deberá cambiar a una billetera local, haga clic en el botón de abajo",
         "wallet_text": "Controle los detalles de su billetera local.",
         "wallets": "Billeteras",
-        "yes": "Si"
+        "yes": "Si",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

@@ -59,17 +59,6 @@ export default class SettingsEntry extends React.Component {
         };
     }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        if (nextProps.setting === "filteredServiceProviders") {
-            // only rerender for the modal, not when settings changed (visualized in the modal!)
-            return (
-                nextState.isGatewaySelectorModalVisible !==
-                this.state.isGatewaySelectorModalVisible
-            );
-        }
-        return true;
-    }
-
     render() {
         let {defaults, setting, settings} = this.props;
         let options,
@@ -150,21 +139,20 @@ export default class SettingsEntry extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {!!value.allow &&
-                            Notify.needsPermission && (
-                                <a
-                                    href="https://goo.gl/zZ7NHY"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="external-link"
-                                >
-                                    <Translate
-                                        component="div"
-                                        className="settings--notifications--no-browser-support"
-                                        content="settings.browser_notifications_disabled_by_browser_notify"
-                                    />
-                                </a>
-                            )}
+                        {!!value.allow && Notify.needsPermission && (
+                            <a
+                                href="https://goo.gl/zZ7NHY"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="external-link"
+                            >
+                                <Translate
+                                    component="div"
+                                    className="settings--notifications--no-browser-support"
+                                    content="settings.browser_notifications_disabled_by_browser_notify"
+                                />
+                            </a>
+                        )}
                     </div>
                 );
 
@@ -184,7 +172,9 @@ export default class SettingsEntry extends React.Component {
                         <Button
                             onClick={this.showGatewaySelectorModal.bind(this)}
                         >
-                            Choose external Service Providers
+                            {counterpart.translate(
+                                "settings.external_setvice_providers"
+                            )}
                         </Button>
                         {this.state.isGatewaySelectorModalRendered && (
                             <GatewaySelectorModal

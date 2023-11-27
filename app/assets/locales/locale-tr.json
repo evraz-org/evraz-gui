@@ -2329,7 +2329,8 @@
         "wallet_required_text": "Bir yedeği geri yüklemek için önce cüzdan modeline geçmeniz gerekecek, bunu aşağıdaki düğmeyi tıklayarak yapın.",
         "wallet_text": "Cüzdan detayları",
         "wallets": "Cüzdanlar",
-        "yes": "Evet"
+        "yes": "Evet",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {

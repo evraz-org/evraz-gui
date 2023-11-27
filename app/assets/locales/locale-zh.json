@@ -2335,7 +2335,8 @@
         "wallet_required_text": "你需要切换到钱包模式才能恢复旧的备份钱包文件，点击下方按钮继续。",
         "wallet_text": "管理本地钱包。",
         "wallets": "钱包管理",
-        "yes": "是"
+        "yes": "是",
+        "external_setvice_providers": "Choose external Service Providers"
     },
     "showcases": {
         "barter": {
