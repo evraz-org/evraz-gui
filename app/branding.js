@@ -94,7 +94,7 @@ export function getUnits() {
     if (_isTestnet()) {
         return ["TEST"];
     }
-    return ["EVRAZ", "BTS", "USD", "CNY", "BTC", "EUR", "GBP"];
+    return ["EVRAZ", "BTS", "USD", "CNY", "BTC", "EUR", "GBP", "RUBLE"];
 }
 
 export function getDefaultMarket() {
