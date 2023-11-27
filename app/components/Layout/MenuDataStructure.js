@@ -53,6 +53,13 @@ class MenuDataStructure {
                 item.inDropdownBehavior = MenuItemType.Always;
             }
 
+            if (
+                item.includePattern === "/credit-offer" ||
+                item.includePattern === "/pools"
+            ) {
+                item.inDropdownBehavior = MenuItemType.Never;
+            }
+
             return item;
         };
 
@@ -68,7 +75,7 @@ class MenuDataStructure {
         return [
             allItems.dashboard,
             allItems.market,
-			allItems.transfer,
+            allItems.transfer,
             allItems.lending,
             allItems.explorer
         ];
