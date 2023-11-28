@@ -81,7 +81,7 @@ class CreditOfferList extends React.Component {
     _getColumns() {
         let header = [
             {
-                title: "ID",
+                title: counterpart.translate("credit_offer.id"),
                 dataIndex: "id"
                 // render: (text) => `#${text.split(".")[2]}`,
             },

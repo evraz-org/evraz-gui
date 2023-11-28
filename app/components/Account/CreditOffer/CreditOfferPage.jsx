@@ -140,7 +140,7 @@ class CreditOfferPage extends React.Component {
         if (locale === "zh") locale = "zh_CN";
         return [
             {
-                title: "ID",
+                title: counterpart.translate("credit_offer.id"),
                 dataIndex: "id"
             },
             {
