@@ -350,7 +350,7 @@ class Exchange extends React.Component {
             chartType: ws.get("chartType", "price_chart"),
             chartHeight: chart_height,
             chartZoom: ws.get("chartZoom", true),
-            chartTools: ws.get("chartTools", false),
+            chartTools: ws.get("chartTools", true),
             hideFunctionButtons: ws.get("hideFunctionButtons", true),
             currentPeriod: ws.get("currentPeriod", 3600 * 24 * 30 * 3), // 3 months
             showMarketPicker: false,
