@@ -156,7 +156,14 @@ export function getMyMarketsQuotes() {
             "SILVER",
             "SILVER1.0",
             "USD",
-            "USD1.0"
+            "USD1.0",
+            "USDIGI",
+            "GBP",
+            "JPY",
+            "EUROLUX",
+            "ALTIN",
+            "ALTIN.TRY",
+            "ALTIN.RUB"
         ],
         gdexTokens: [],
         openledgerTokens: [],
