@@ -107,7 +107,7 @@ class TradingViewPriceChart extends React.Component {
         this.tvWidget = new TradingView.widget({
             fullscreen: false,
             symbol: props.quoteSymbol + "_" + props.baseSymbol,
-            interval: getResolutionsFromBuckets([props.bucketSize])[0],
+            interval: getResolutionsFromBuckets([props.bucketSize])[1],
             timeframe: getResolutionsFromBuckets(
                 [props.bucketSize * 250],
                 true
