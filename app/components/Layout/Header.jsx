@@ -33,8 +33,8 @@ import DividerMenuItem from "./DividerMenuItem";
 import MenuItemType from "./MenuItemType";
 import MenuDataStructure from "./MenuDataStructure";
 
-import {getDefaultMarket, getLogo} from "branding";
-var logo = getLogo();
+import {getDefaultMarket, getSmallLogo} from "branding";
+var logo = getSmallLogo();
 
 // const FlagImage = ({flag, width = 20, height = 20}) => {
 //     return <img height={height} width={width} src={`${__BASE_URL__}language-dropdown/${flag.toUpperCase()}.png`} />;

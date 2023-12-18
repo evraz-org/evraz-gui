@@ -67,6 +67,10 @@ export function getLogo() {
     // return "/assets/evraz_big.png";
 }
 
+export function getSmallLogo() {
+    return require("assets/evraz_small.png").default;
+}
+
 /**
  * Default set theme for the UI
  * @returns {string}
