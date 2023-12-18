@@ -1,60 +1,17 @@
-# Disclaimer
+Full description
 
-## Information Published
+EVRAZ is a global network of digital currency (NDC) and a decentralized exchange (DEX), a unique product of innovative technologies. It operates on the advanced and fastest blockchain in the world BitShares and is built on the Graphene technology to spread modern scientific achievements to all industries that use the internet to provide their services. It is a multi-functional, industrial-level Web 3.0 platform for high-performance financial instruments and smart contracts. It is the first decentralized autonomous community that allows its main token holders to determine their future direction of development and financial products.
+EVRAZ is a peer-to-peer, one-rank system that allows for direct, intermediary-free exchange of digital goods traded in the ecosystem. Fast and secure, with anonymous named accounts where only you have access to your account. The web application has a user-friendly, stylish interface. EVRAZ electronic money network provides fast payments around the world. The EVRAZ coin is a token of the EVRAZ project and is used for payments and transactions on the platform. As the platform is global, anyone with an internet connection can use it for trading. This makes all the liquidity of the world available to a single order book for trading.
+EVRAZ decentralized exchange (DEX) is a platform for buying and selling cryptocurrencies at fair prices with blockchain guarantees so users can securely store and transfer their digital assets. Every trading operation is recorded in the blockchain. You can trade any amount at anytime from anywhere with low fees. Unlike other decentralized networks, EVRAZ has a very high transaction processing speed, which allows for real-time trading, and a unique verifiable order matching algorithm. Once a set of orders is received, it can always be verified that these orders were matched correctly.
+The exchange is resilient to external influences and there is no single point of failure. It has a very definite set of advantages over traditional centralized exchanges. Security of funds and trades is ensured by industrial-level elliptic cryptography. Unlike centralized exchanges, no one can access user funds without their permission. To increase security, conditional deposits and multi-signature schemes can be set up for clients. In EVRAZ DEX, order matching is done by a protocol that is unaware of the consequences of the assets associated with it. Undoubtedly, the future is for decentralized exchanges.
+For automated trading on the stock exchange in free access there is a free trading bot with opensource code, which can be used and which can be customized to your specific needs. Simple and understandable in settings. This is a great opportunity to make money without bothering with technical analysis and looking through countless market forecasts. And you don't have to be a professional trader, just have the desire to make money. Practically ready business with the possibility of guaranteed income.
+One of the biggest innovations of the platform is cryptocurrency, which is able to maintain parity with a globally accepted currency, such as the US dollar. It can be widely used for convenient and censorship-resistant trading. This is achieved through a new type of market-pegged assets (MPA) freely traded digital assets whose value is linked to the value of the underlying asset through contracts for difference (CFD). These are smartcoins such as bitUSD, bitEUR, bitRuble, bitCNY and others. Smart coin (synonym MPA and stablecoin) is a cryptocurrency that always has 100% or more of its value secured by the main currency of the BTS platform, to which it can be exchanged at any time, as collateral in CFD.
+These unique smart coins make them independent of intermediary risk, even though they are similar to CFDs backed by collateral. This is achieved by providing the network with the capability, implemented as a software protocol, to be responsible for providing the collateral and executing trades. These digital tokens have the same value as the physical assets attached to them. Therefore, 1 USD in such a wallet is worth 1$ and can be used as such. Any of these tokens is backed by other assets that are frozen as collateral and available for trading at their current price.
+In addition to the above-mentioned assets linked to the market, the cryptocurrency platform allows individuals and companies to create and issue their own tokens. The potential uses for so-called user-issued assets (UIA) are innumerable. On the one hand, such assets can be used as regular tickets stored on the user's mobile phone to facilitate entry to a concert. On the other hand, they can be used for crowdfunding, ownership tracking, or even selling company shares in the form of stocks.
+The public digital register allows the creation of decentralized autonomous companies (DACs) for various structures and projects that provide better quality services at lower costs compared to their traditional, centralized institutions. They are, by nature, global, transparent, reliable, efficient, and, perhaps most importantly, profitable. The emergence of such decentralized companies heralds the emergence of a new paradigm in organizational structure, in which companies can operate without human management and under the control of an incorruptible set of business rules. These rules are encoded in publicly verifiable software with opensource code distributed on the computers of company shareholders, which easily protect the company from arbitrary control. 
+EVRAZ is building an independent ecosystem that eliminates the need for financial intermediaries. Our goal is to mass-introduce and fully integrate cryptocurrencies into everyday life, completely eliminating the need for traditional banking structures and making it easier for individual users to get started in this field. The remittance industry is precisely the place where the benefits of using innovative technologies are obvious to people. The EVRAZ system eliminates barriers to sending, exchanging, and receiving money by using cryptocurrencies.
+We see a future where cryptocurrencies gradually first eliminate the monopoly of governments on uncontrolled fiat money emission, and then completely replace the bureaucratically controlled traditional financial means. We provide customers with services based on the latest scientific achievements. The project has a powerful potential for development, and EVRAZ tokens are an excellent tool for long-term investment.
+EVRAZ is a decentralized system, the key to which is trust. It is a place where you can find freedom and security, where you can easily trade and make transactions. It is a place where you can be sure that your funds are safe, where you can invest and reap the rewards. A place where you can find the best of what the world has to offer, where you can feel the power of the blockchain. It is a place where you can be sure that your money is safe and secure. A place where you can find the future of finance. A place where you can be sure that your investments will pay off.
 
-This Website or Software (hereinafter, referred to as the "Platform") provides information and material of a general nature. You are not authorized and nor should you rely on the Platform for legal advice, business advice, or advice of any kind. You act at your own risk in reliance on the contents of this Platform. Should you make a decision to act or not act you should contact a licensed attorney in the relevant jurisdiction in which you want or need help. In no way are the owners of, or contributors to, this Platform responsible for the actions, decisions, or other behavior taken or not taken by you in reliance upon the Platform.
-
-## Information and Material Nature
-
-This Platform is an interface connecting to the BitShares Blockchain, hence information appearing over the platform are the means of their creators and users over BitShares Blockchain. By using this Platform, you understand and agree that the Platform is only a terminal that is interfacing with the BitShares Blockchain "as is", and that contents are NOT made by the Platform, but by BitShares Blockchain Users.
-
-## Translations
-
-The Website may contain translations of the English version of the content available on the Website. These translations are provided only as a convenience. In the event of any conflict between the English language version and the translated version, the English language version shall take precedence. If you notice any inconsistency, please report them on [GitHub](https://github.com/bitshares/bitshares-ui/issues).
-
-## General Risks
-
-This Platform will not be responsible for any losses, damages or claims arising from events falling within the scope of the following five categories:
-
-(1) Mistakes made by the user of any BitShares Blockchain related software or service, e.g., forgotten passwords, payments sent to wrong BitShares Blockchain addresses, and accidental deletion of wallets information and credentials.
-
-(2) Platform problems and/or any BitShares Blockchain related software or service, e.g., corrupted wallet file, incorrectly constructed transactions, unsafe cryptographic libraries, malware affecting the Platform and/or any BitShares Blockchain related software or service.
-
-(3) Technical failures in the hardware of the user of any BitShares Blockchain related software or service, e.g., data loss due to a faulty or damaged storage device.
-
-(4) Security problems experienced by the user of any BitShares Blockchain related software or service, e.g., unauthorized access to users' wallets and/or accounts.
-
-(5) Actions or inactions of third parties and/or events experienced by third parties, e.g., bankruptcy of service providers, information security attacks on service providers, and fraud conducted by third parties.
-
-
-## Investment Risks
-
-The investment in BitShares Blockchain can lead to loss of money over short or even long periods. The investors in BitShares Blockchain should expect prices to have large range fluctuations. The information published on the Platform cannot guarantee that the investors in BitShares Blockchain would not lose money.
-
-
-## Compliance with Tax Obligations
-
-The users of the Platform are solely responsible to determinate what, if any, taxes apply to their BitShares Blockchain transactions. The owners of, or contributors to, the Platform are NOT responsible for determining the taxes that apply to BitShares Blockchain transactions.
-
-
-## The Platform does not store, send, receive or otherwise manipulate any assets
-
-The Platform does not store, send, receive or otherwise manipulate any assets. This is because BitShares Blockchain assets exist only by virtue of the ownership record maintained in the BitShares Blockchain. Any transaction that affects assets in the BitShares Blockchain occurs within a decentralized BitShares Blockchain, and not on the Platform.
-
-## No Warranties
-
-Your use or inability to use this Platform and BitShares Blockchain is carried out solely at your own risk and you don't put any responsibility on platform hosting company. The Platform is provided on an "as is" basis without any warranties of any kind regarding the Platform and/or any content, data, materials and/or services provided on the Platform.
-
-
-## Limitation of liability
-
-Unless otherwise required by law, in no event shall the owners of, or contributors to, the Platform be liable for any damages of any kind, including, but not limited to, loss of use, loss of profits, or loss of data arising out of or in any way connected with the use of the Platform.
-
-
-## Arbitration
-
-The user of the Platform agrees to arbitrate any dispute arising from or in connection with the Platform or this disclaimer, except for disputes related to copyrights, logos, trademarks, trade names, trade secrets or patents.
-
-## Last amendment
-
-This disclaimer was amended for the last time on Sep 14th, 2022.
+Site: https://www.evrazcoin.org/
+Exchange: https://evrazdex.org/
