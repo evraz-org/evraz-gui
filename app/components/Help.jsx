@@ -8,7 +8,19 @@ class Help extends React.Component {
             .map(p => p[1])
             .join("/");
 
-        return (
+        return path.includes("disclaimer") ? (
+            <div className="grid-container page-layout help-content-layout">
+                <div className="grid-block page-layout">
+                    <div className="grid-block main-content wrap regular-padding">
+                        <div className="grid-block medium-9">
+                            <div className="grid-content main-content">
+                                <HelpContent path={path || "index"} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ) : (
             <div className="grid-container page-layout help-content-layout">
                 <div className="grid-block page-layout">
                     <div className="grid-block main-content wrap regular-padding">

@@ -84,7 +84,7 @@ class Footer extends React.Component {
         this.checkNewVersionAvailable.call(this);
 
         this.downloadLink =
-            "https://github.com/bitshares/bitshares-ui/releases/latest";
+            "https://github.com/evraz-org/evraz-gui/releases/latest";
 
         let ensure = this._ensureConnectivity.bind(this);
         ifvisible.on("wakeup", function() {
@@ -113,7 +113,7 @@ class Footer extends React.Component {
     checkNewVersionAvailable() {
         if (__ELECTRON__) {
             fetch(
-                "https://api.github.com/repos/bitshares/bitshares-ui/releases/latest"
+                "https://api.github.com/repos/evraz-org/evraz-gui/releases/latest"
             )
                 .then(res => {
                     return res.json();
@@ -125,7 +125,7 @@ class Footer extends React.Component {
                         let isReleaseCandidate =
                             APP_VERSION.indexOf("rc") !== -1;
                         if (!isReleaseCandidate && oldVersion !== newVersion) {
-                            this.setState({newVersion});
+                            this.setState({oldVersion});
                         }
                     }.bind(this)
                 );
@@ -510,8 +510,9 @@ class Footer extends React.Component {
                                 <span>
                                     {" "}
                                     -{" "}
-                                    <Link to="/help/disclaimer">Disclaimer</Link>
-                                    {" "}
+                                    <Link to="/help/disclaimer">
+                                        Disclaimer
+                                    </Link>{" "}
                                 </span>
                                 {state.newVersion && (
                                     <Translate
@@ -623,12 +624,11 @@ class Footer extends React.Component {
                                         }}
                                     >
                                         <div className="footer-status">
-                                            {connected &&
-                                                activeNode.testNet && (
-                                                    <span className="testnet">
-                                                        <Translate content="settings.testnet_nodes" />{" "}
-                                                    </span>
-                                                )}
+                                            {connected && activeNode.testNet && (
+                                                <span className="testnet">
+                                                    <Translate content="settings.testnet_nodes" />{" "}
+                                                </span>
+                                            )}
                                             {!connected ? (
                                                 <span className="warning">
                                                     <Translate content="footer.disconnected" />
@@ -648,10 +648,10 @@ class Footer extends React.Component {
                                                 {!connected
                                                     ? "-"
                                                     : !activeNode.ping
-                                                        ? "-"
-                                                        : parseInt(
-                                                              activeNode.ping
-                                                          ) + "ms"}
+                                                    ? "-"
+                                                    : parseInt(
+                                                          activeNode.ping
+                                                      ) + "ms"}
                                                 &nbsp;/&nbsp;
                                                 <span className="footer-block-title">
                                                     <Translate content="footer.block" />
