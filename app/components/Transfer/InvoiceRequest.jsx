@@ -33,8 +33,6 @@ class InvoiceRequest extends React.Component {
                 "CNY",
                 "USD",
                 "XBTSX.USDT",
-                "HONEST.USD",
-                "HONEST.CNY",
                 "URTHR",
                 "SKULD",
                 "VERTHANDI",
