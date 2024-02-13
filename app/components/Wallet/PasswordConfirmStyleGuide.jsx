@@ -4,6 +4,7 @@ import cname from "classnames";
 import PropTypes from "prop-types";
 import counterpart from "counterpart";
 import {Form, Input} from "bitshares-ui-style-guide";
+import Icon from "../Icon/Icon";
 
 const FormItem = Form.Item;
 
@@ -20,7 +21,9 @@ export default class PasswordConfirm extends Component {
             confirm: "",
             errors: Immutable.Map(),
             // An empty form has no errors but is still invaid
-            valid: false
+            valid: false,
+            passwordVisible: false,
+            confirmPasswordVisible: false
         };
     }
 
@@ -64,6 +67,48 @@ export default class PasswordConfirm extends Component {
         this.props.onValid(valid ? password : null);
     }
 
+    renderPasswordEye() {
+        const {passwordVisible} = this.state;
+        return !passwordVisible ? (
+            <span
+                className="input-password-eye"
+                style={{marginRight: "170px", marginTop: "-25px"}}
+                onClick={() => this.setState({passwordVisible: true})}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="input-password-eye"
+                style={{marginRight: "170px", marginTop: "-25px"}}
+                onClick={() => this.setState({passwordVisible: false})}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
+    }
+
+    renderConfirmPasswordEye(confirmMatch) {
+        const {confirmPasswordVisible} = this.state;
+        return !confirmPasswordVisible ? (
+            <span
+                className="confirm-password-eye"
+                style={{marginRight: "170px", marginTop: "-25px"}}
+                onClick={() => this.setState({confirmPasswordVisible: true})}
+            >
+                <Icon name="eye" className="eye-icon icon-opacity" />
+            </span>
+        ) : (
+            <span
+                className="confirm-password-eye"
+                style={{marginRight: "170px", marginTop: "-25px"}}
+                onClick={() => this.setState({confirmPasswordVisible: false})}
+            >
+                <Icon name="eye-striked" className="eye-icon icon-opacity" />
+            </span>
+        );
+    }
+
     render() {
         const {password, confirm, errors} = this.state;
         let {newPassword} = this.props;
@@ -78,7 +123,11 @@ export default class PasswordConfirm extends Component {
                 >
                     <section>
                         <Input
-                            type="password"
+                            type={
+                                !this.state.passwordVisible
+                                    ? "password"
+                                    : "text"
+                            }
                             id="current-password"
                             autoComplete="current-password"
                             ref={this.getInputNode()}
@@ -86,6 +135,7 @@ export default class PasswordConfirm extends Component {
                             value={password}
                             tabIndex={tabIndex++}
                         />
+                        {this.renderPasswordEye()}
                     </section>
                 </FormItem>
 
@@ -96,14 +146,18 @@ export default class PasswordConfirm extends Component {
                 >
                     <section className={cname({"has-error": errors.size})}>
                         <Input
-                            type="password"
+                            type={
+                                !this.state.confirmPasswordVisible
+                                    ? "password"
+                                    : "text"
+                            }
                             id="new-password"
                             autoComplete="new-password"
                             onChange={this.formChange.bind(this)}
                             value={confirm}
                             tabIndex={tabIndex++}
                         />
-
+                        {this.renderConfirmPasswordEye()}
                         <div>
                             {errors.get("password_match") ||
                                 errors.get("password_length")}
