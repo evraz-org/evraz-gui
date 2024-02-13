@@ -523,6 +523,11 @@ class SendModal extends React.Component {
                     footer={[
                         <Button
                             key={"send"}
+                            style={{
+                                backgroundColor: "#008000",
+                                color: "#FFFFFF",
+                                borderColor: "#008000"
+                            }}
                             disabled={isSubmitNotValid}
                             onClick={
                                 !isSubmitNotValid
@@ -536,6 +541,11 @@ class SendModal extends React.Component {
                         </Button>,
                         <Button
                             key="Cancel"
+                            style={{
+                                backgroundColor: "#800000",
+                                color: "#FFFFFF",
+                                borderColor: "#800000"
+                            }}
                             tabIndex={tabIndex++}
                             onClick={this.onClose}
                         >
