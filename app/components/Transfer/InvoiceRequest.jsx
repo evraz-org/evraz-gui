@@ -35,8 +35,7 @@ class InvoiceRequest extends React.Component {
                 "XBTSX.USDT",
                 "URTHR",
                 "SKULD",
-                "VERTHANDI",
-                "HERTZ"
+                "VERTHANDI"
             ]
         };
     }

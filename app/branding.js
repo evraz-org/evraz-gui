@@ -130,7 +130,8 @@ export function getMyMarketsBases() {
         "EUROLUX",
         "ALTIN",
         "ALTIN.TRY",
-        "ALTIN.RUB"
+        "ALTIN.RUB",
+        "LEPTA"
     ];
 }
 
@@ -172,17 +173,7 @@ export function getMyMarketsQuotes() {
         gdexTokens: [],
         openledgerTokens: [],
         rudexTokens: [],
-        piratecashTockens: [
-            "PIRATE.PIRATE",
-            "PIRATE.BTC",
-            "PIRATE.LTC",
-            "PIRATE.BCC",
-            "PIRATE.DOGE",
-            "PIRATE.COSA"
-        ],
-        xbtsxTokens: ["XBTSX.BTC", "XBTSX.USDT", "XBTSX.HIVE", "XBTSX.EOS"],
-        ioxbankTokens: ["IOB.XRP", "IOB.XLM"],
-        otherTokens: ["CVCOIN", "HERO", "OCT", "HERTZ", "YOYOW"]
+        xbtsxTokens: ["XBTSX.BTC", "XBTSX.USDT", "XBTSX.HIVE", "XBTSX.EOS"]
     };
 
     let allTokens = [];
@@ -211,27 +202,19 @@ export function getFeaturedMarkets(quotes = []) {
         ["EVRAZ", "CRUDE.NGN"],
         ["USD", "BTS"],
         ["USD", "GOLD"],
-        ["USD", "HERO"],
-        ["USD", "HERTZ"],
         ["USD", "URTHR"],
         ["USD", "SKULD"],
         ["USD", "VERTHANDI"],
         ["CNY", "BTS"],
         ["CNY", "USD"],
-        ["CNY", "YOYOW"],
-        ["CNY", "OCT"],
-        ["CNY", "HERTZ"],
         ["CNY", "URTHR"],
         ["CNY", "SKULD"],
         ["CNY", "VERTHANDI"],
         ["BTS", "RUBLE"],
-        ["BTS", "HERO"],
-        ["BTS", "OCT"],
         ["BTS", "SILVER"],
         ["BTS", "GOLD"],
         ["BTS", "XBTSX.BTC"],
         ["BTS", "XBTSX.USDT"],
-        ["BTS", "HERTZ"],
         ["EVRAZ", "BTS"],
         ["EVRAZ", "RUBLE"],
         ["EVRAZ", "EUR"],
@@ -239,9 +222,6 @@ export function getFeaturedMarkets(quotes = []) {
         ["EVRAZ", "RUDEX.BTC"],
         ["EVRAZ", "XBTSX.BTC"],
         ["EVRAZ", "CRUDE.NGN"]["BTS"],
-        ["BTS", "IOB.XRP"],
-        ["BTS", "IOB.XLM"],
-        ["BTS", "HERTZ"],
         ["BTS", "URTHR"],
         ["BTS", "SKULD"],
         ["BTS", "VERTHANDI"]
