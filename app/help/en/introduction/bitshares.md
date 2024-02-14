@@ -1,28 +1,4 @@
 # BitShares
-This is the reference wallet of BitShares Blockchain which connects to BitShares Blockchain nodes (bitshares-core).
-
-This reference wallet is a browser based wallet. Your keys are stored locally in your browser and never leave it as transactions are signed locally 
-before broadcasting them. Never expose your keys to anyone. 
-
-## Support
-
->If you have an issue related to a Gateway provider, please be sure to contact them directly. See Gateways in the left menu.
-
-### BitShares Chat
-You can chat with other member of the BitShares community in real time at:
-
-- [BitSharesDAC](https://t.me/BitSharesDAC)
-
-If you seek support for this wallet, there are community members offering that in Telegram:
-
-- https://t.me/btsWalletHelp
-
-### Developers
-If you are a software developer, you may contribute to the BitShares Blockchain via:
-
-- [Github UI](https://github.com/bitshares/bitshares-ui)
-- [Github Core](https://github.com/bitshares/bitshares-core) 
-- https://t.me/BitSharesDev
 
 ## Introduction
 Welcome to the worlds fastest decentralized exchange (DEX).
