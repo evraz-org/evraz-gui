@@ -131,8 +131,8 @@ class OrderBookRowHorizontal extends React.Component {
         let integerClass = isCall
             ? "orderHistoryCall"
             : isBid
-            ? "orderHistoryBid"
-            : "orderHistoryAsk";
+            ? "orderHistoryAsk"
+            : "orderHistoryBid";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
@@ -173,12 +173,16 @@ class OrderBookRowHorizontal extends React.Component {
               );
 
         let bgImage = "";
-        if(this.props.marketDepthPercentage && !this.props.isBid) {
-            bgImage = `linear-gradient(to right, rgba(255,0,0,.15) ${this.props.marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props.marketDepthPercentage || 0}%)`
-        } else if(this.props.marketDepthPercentage && this.props.isBid) {
-            bgImage = `linear-gradient(to left, rgba(0,255,0,.15) ${this.props.marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props.marketDepthPercentage || 0}%)`
+        if (this.props.marketDepthPercentage && !this.props.isBid) {
+            bgImage = `linear-gradient(to right, rgba(255,0,0,.15) ${this.props
+                .marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props
+                .marketDepthPercentage || 0}%)`;
+        } else if (this.props.marketDepthPercentage && this.props.isBid) {
+            bgImage = `linear-gradient(to left, rgba(0,255,0,.15) ${this.props
+                .marketDepthPercentage || 0}%, rgba(0,0,0,0) ${this.props
+                .marketDepthPercentage || 0}%)`;
         }
-        
+
         return (
             <tr
                 onClick={this.props.onClick}
@@ -779,11 +783,13 @@ class OrderBook extends React.Component {
                     );
                 });
             } else {
-                let maxBid = tempBids.length ? tempBids[tempBids.length - 1].totalForSale().getAmount() : 0;
-                
+                let maxBid = tempBids.length
+                    ? tempBids[tempBids.length - 1].totalForSale().getAmount()
+                    : 0;
+
                 bidRows = tempBids.map((order, index) => {
                     const value = order.totalForSale().getAmount();
-                    const percentage = Math.ceil(value * 100 / maxBid);
+                    const percentage = Math.ceil((value * 100) / maxBid);
                     return horizontal ? (
                         <OrderBookRowHorizontal
                             index={index}
@@ -818,11 +824,13 @@ class OrderBook extends React.Component {
                     );
                 });
 
-                let maxAsk = tempAsks.length ? tempAsks[tempAsks.length - 1].totalForSale().getAmount() : 0;
-                
+                let maxAsk = tempAsks.length
+                    ? tempAsks[tempAsks.length - 1].totalForSale().getAmount()
+                    : 0;
+
                 askRows = tempAsks.map((order, index) => {
                     const value = order.totalForSale().getAmount();
-                    const percentage = Math.ceil(value * 100 / maxAsk);
+                    const percentage = Math.ceil((value * 100) / maxAsk);
                     return horizontal ? (
                         <OrderBookRowHorizontal
                             index={index}
@@ -1073,7 +1081,10 @@ class OrderBook extends React.Component {
                                     </span>
                                 </div>
                             </div>
-                            <div className="market-right-padding-only" style={{ paddingRight: "0.6rem" }} >
+                            <div
+                                className="market-right-padding-only"
+                                style={{paddingRight: "0.6rem"}}
+                            >
                                 <table className="table order-table table-hover fixed-table text-right">
                                     {!flipOrderBook ? rightHeader : leftHeader}
                                 </table>
@@ -1233,7 +1244,10 @@ class OrderBook extends React.Component {
                                     </span>
                                 </div>
                             </div>
-                            <div className="market-right-padding-only" style={{ paddingRight: "0.6rem" }} >
+                            <div
+                                className="market-right-padding-only"
+                                style={{paddingRight: "0.6rem"}}
+                            >
                                 <table className="table order-table table-hover fixed-table text-right">
                                     {flipOrderBook ? rightHeader : leftHeader}
                                 </table>
