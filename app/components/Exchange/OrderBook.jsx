@@ -131,8 +131,8 @@ class OrderBookRowHorizontal extends React.Component {
         let integerClass = isCall
             ? "orderHistoryCall"
             : isBid
-            ? "orderHistoryAsk"
-            : "orderHistoryBid";
+            ? "orderHistoryBid"
+            : "orderHistoryAsk";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
@@ -225,7 +225,7 @@ class GroupedOrderBookRowVertical extends React.Component {
     render() {
         let {order, quote, base, final} = this.props;
         const isBid = order.isBid();
-        let integerClass = isBid ? "orderHistoryBid" : "orderHistoryAsk";
+        let integerClass = !isBid ? "orderHistoryBid" : "orderHistoryAsk";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
@@ -276,7 +276,7 @@ class GroupedOrderBookRowHorizontal extends React.Component {
         let {order, quote, base, position, quoteTotal} = this.props;
         const isBid = order.isBid();
 
-        let integerClass = isBid ? "orderHistoryBid" : "orderHistoryAsk";
+        let integerClass = !isBid ? "orderHistoryBid" : "orderHistoryAsk";
 
         let price = (
             <PriceText price={order.getPrice()} quote={quote} base={base} />
