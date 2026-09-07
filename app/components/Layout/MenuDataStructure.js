@@ -76,6 +76,7 @@ class MenuDataStructure {
             allItems.dashboard,
             allItems.market,
             allItems.transfer,
+            allItems.deposit_withdraw,
             allItems.lending,
             allItems.explorer
         ];
@@ -131,6 +132,7 @@ class MenuDataStructure {
             allItems.explorer,
             allItems.divider,
             allItems.transfer,
+            allItems.deposit_withdraw,
             allItems.deposit,
             allItems.withdraw,
             // allItems.account_voting,
@@ -267,11 +269,6 @@ class MenuDataStructure {
                     title: "icons.deposit.deposit"
                 },
                 text: "modal.deposit.submit",
-                submenu: {
-                    target: "/deposit-withdraw",
-                    text: "header.deposit_legacy",
-                    disabled: !state.enableDepositWithdraw
-                },
                 disabled: !state.enableDepositWithdraw,
                 inDropdownBehavior: MenuItemType.WhenAccount
             }),
@@ -279,22 +276,18 @@ class MenuDataStructure {
                 target: state.clickHandlers.showWithdraw,
                 icon: "withdraw",
                 text: "modal.withdraw.submit",
-                submenu: {
-                    target: "/deposit-withdraw",
-                    text: "header.withdraw_legacy",
-                    disabled: !state.enableDepositWithdraw
-                },
                 disabled: !state.enableDepositWithdraw,
                 inDropdownBehavior: MenuItemType.WhenAccount
             }),
             deposit_withdraw: state => ({
+                target: "/deposit-withdraw",
                 includePattern: "deposit-withdraw",
                 icon: {
-                    name: "deposit-withdraw",
-                    title: "icons.deposit.deposit_withdraw"
+                    name: "deposit",
+                    title: "icons.deposit.deposit"
                 },
-                text: "header.deposit-withdraw",
-                inHeaderBehavior: MenuItemType.Dynamic,
+                text: "header.deposit_legacy_title",
+                inHeaderBehavior: MenuItemType.WhenAccount,
                 inDropdownBehavior: MenuItemType.Never
             }),
             settings: state => ({

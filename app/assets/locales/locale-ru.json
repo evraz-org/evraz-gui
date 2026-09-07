@@ -1454,6 +1454,7 @@
         "dashboard": "Инфопанель",
         "deposit-withdraw": "Депозит/Вывод",
         "deposit_legacy": "или старой формой депозита",
+        "deposit_legacy_title": "Шлюзы (старая форма)",
         "exchange": "Биржа",
         "explorer": "Обозреватель",
         "help": "Помощь",
