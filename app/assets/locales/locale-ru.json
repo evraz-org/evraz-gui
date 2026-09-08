@@ -1477,6 +1477,9 @@
         "update_asset": "Обновить актив",
         "withdraw_legacy": "или старой формой вывода"
     },
+    "gateways": "Шлюзы",
+    "deposit": "Ввести",
+    "withdraw": "Вывести",
     "htlc": {
         "claim_period": "Секунд на востребование",
         "claim_period_due": "Востребование возможно до",

@@ -44,7 +44,7 @@ const gatewayBoolCheck = "withdrawalAllowed";
 
 import {getAssetAndGateway, getIntermediateAccount} from "common/gatewayUtils";
 
-class WithdrawModalNew extends React.Component {
+export class WithdrawModalNew extends React.Component {
     constructor(props) {
         super(props);
 

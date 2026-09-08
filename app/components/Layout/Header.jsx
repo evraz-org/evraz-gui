@@ -7,7 +7,7 @@ import SettingsStore from "stores/SettingsStore";
 import SettingsActions from "actions/SettingsActions";
 import ZfApi from "react-foundation-apps/src/utils/foundation-api";
 import SendModal from "../Modal/SendModal";
-import DepositModal from "../Modal/DepositModal";
+import GatewaysModal from "../Modal/GatewaysModal";
 import GatewayStore from "stores/GatewayStore";
 import Icon from "../Icon/Icon";
 import counterpart from "counterpart";
@@ -21,7 +21,7 @@ import ReactTooltip from "react-tooltip";
 import {Apis} from "bitsharesjs-ws";
 import AccountImage from "../Account/AccountImage";
 import {ChainStore} from "bitsharesjs";
-import WithdrawModal from "../Modal/WithdrawModalNew";
+
 import {List} from "immutable";
 import DropDownMenu from "./HeaderDropdown";
 import {withRouter} from "react-router-dom";
@@ -47,10 +47,7 @@ class Header extends React.Component {
             active: props.location.pathname,
             accountsListDropdownActive: false,
             dropdownActive: false,
-            isDepositModalVisible: false,
-            hasDepositModalBeenShown: false,
-            isWithdrawModalVisible: false,
-            hasWithdrawalModalBeenShown: false
+            isGatewaysModalVisible: false
         };
 
         this._accountNotificationActiveKeys = [];
@@ -68,38 +65,22 @@ class Header extends React.Component {
             this
         );
 
-        this.showDepositModal = this.showDepositModal.bind(this);
-        this.hideDepositModal = this.hideDepositModal.bind(this);
-
-        this.showWithdrawModal = this.showWithdrawModal.bind(this);
-        this.hideWithdrawModal = this.hideWithdrawModal.bind(this);
+        this.showGatewaysModal = this.showGatewaysModal.bind(this);
+        this.hideGatewaysModal = this.hideGatewaysModal.bind(this);
 
         this.onBodyClick = this.onBodyClick.bind(this);
     }
 
-    showDepositModal() {
+    showGatewaysModal() {
         this.setState({
-            isDepositModalVisible: true,
-            hasDepositModalBeenShown: true
+            isGatewaysModalVisible: true
         });
     }
 
-    hideDepositModal() {
+    hideGatewaysModal() {
+        console.log("hideGatewaysModal called");
         this.setState({
-            isDepositModalVisible: false
-        });
-    }
-
-    showWithdrawModal() {
-        this.setState({
-            isWithdrawModalVisible: true,
-            hasWithdrawalModalBeenShown: true
-        });
-    }
-
-    hideWithdrawModal() {
-        this.setState({
-            isWithdrawModalVisible: false
+            isGatewaysModalVisible: false
         });
     }
 
@@ -166,18 +147,6 @@ class Header extends React.Component {
         e.preventDefault();
         if (this.send_modal) this.send_modal.show();
         this._closeDropdown();
-    }
-
-    _showDeposit(e) {
-        e.preventDefault();
-        this.showDepositModal();
-        this._closeDropdown();
-    }
-
-    _showWithdraw(e) {
-        e.preventDefault();
-        this._closeDropdown();
-        this.showWithdrawModal();
     }
 
     _triggerMenu(e) {
@@ -490,7 +459,8 @@ class Header extends React.Component {
         const hasLocalWallet = !!WalletDb.getWallet();
 
         let clickHandlers = {
-            showSend: this._showSend.bind(this)
+            showSend: this._showSend.bind(this),
+            showGatewaysModal: this.showGatewaysModal.bind(this)
         };
 
         let renderingProps = {
@@ -705,9 +675,10 @@ class Header extends React.Component {
                             tradeUrl={tradeUrl}
                             currentAccount={currentAccount}
                             enableDepositWithdraw={enableDepositWithdraw}
-                            showDeposit={this._showDeposit.bind(this)}
-                            showWithdraw={this._showWithdraw.bind(this)}
                             showSend={this._showSend.bind(this)}
+                            showGatewaysModal={this.showGatewaysModal.bind(
+                                this
+                            )}
                         />
                     </div>
                 </div>
@@ -718,27 +689,14 @@ class Header extends React.Component {
                     }}
                     from_name={currentAccount}
                 />
-                {this.state.hasDepositModalBeenShown && (
-                    <DepositModal
-                        visible={this.state.isDepositModalVisible}
-                        hideModal={this.hideDepositModal}
-                        showModal={this.showDepositModal}
-                        ref="deposit_modal_new"
-                        modalId="deposit_modal_new"
-                        account={currentAccount}
-                        backedCoins={this.props.backedCoins}
-                    />
-                )}
-                {this.state.hasWithdrawalModalBeenShown && (
-                    <WithdrawModal
-                        visible={this.state.isWithdrawModalVisible}
-                        hideModal={this.hideWithdrawModal}
-                        showModal={this.showWithdrawModal}
-                        ref="withdraw_modal_new"
-                        modalId="withdraw_modal_new"
-                        backedCoins={this.props.backedCoins}
-                    />
-                )}
+                <GatewaysModal
+                    visible={this.state.isGatewaysModalVisible}
+                    hideModal={this.hideGatewaysModal}
+                    ref="gateways_modal"
+                    modalId="gateways_modal"
+                    account={currentAccount}
+                    backedCoins={this.props.backedCoins}
+                />
             </div>
         );
     }

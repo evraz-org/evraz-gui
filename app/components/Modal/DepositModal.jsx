@@ -21,7 +21,7 @@ import CryptoLinkFormatter from "../Utility/CryptoLinkFormatter";
 import counterpart from "counterpart";
 import {Modal, Button} from "bitshares-ui-style-guide";
 
-class DepositModalContent extends DecimalChecker {
+export class DepositModalContent extends DecimalChecker {
     constructor() {
         super();
 

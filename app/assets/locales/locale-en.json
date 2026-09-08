@@ -1457,6 +1457,7 @@
         "deposit_legacy": "or Legacy Deposit",
         "deposit_legacy_title": "Gateways (old form)",
         "exchange": "Exchange",
+        "gateways": "Gateways",
         "explorer": "Explore",
         "help": "Help",
         "insight": "Insight",
@@ -1478,6 +1479,9 @@
         "update_asset": "Update Asset",
         "withdraw_legacy": "or Legacy Withdraw"
     },
+    "gateways": "Gateways",
+    "deposit": "Deposit",
+    "withdraw": "Withdrawal",
     "htlc": {
         "claim_period": "Seconds to claim",
         "claim_period_due": "Claimable until",

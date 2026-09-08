@@ -66,7 +66,8 @@ export default class DropDownMenu extends React.Component {
             contacts,
             showSend,
             showDeposit,
-            showWithdraw
+            showWithdraw,
+            showGatewaysModal
         } = this.props;
 
         let isContact = contacts.has(currentAccount);
@@ -78,7 +79,8 @@ export default class DropDownMenu extends React.Component {
             ].bind(this),
             showSend: showSend,
             showDeposit: showDeposit,
-            showWithdraw: showWithdraw
+            showWithdraw: showWithdraw,
+            showGatewaysModal: showGatewaysModal
         };
 
         let renderingProps = {

@@ -6,8 +6,7 @@ class MenuDataStructure {
             toggleLock,
             followUnfollow,
             showSend,
-            showDeposit,
-            showWithdraw
+            showGatewaysModal
         },
         renderingProps: {
             isAccountLocked,
@@ -133,8 +132,7 @@ class MenuDataStructure {
             allItems.divider,
             allItems.transfer,
             allItems.deposit_withdraw,
-            allItems.deposit,
-            allItems.withdraw,
+            allItems.gateways,
             // allItems.account_voting,
             allItems.spotlight,
             allItems.insight,
@@ -262,20 +260,13 @@ class MenuDataStructure {
                 inHeaderBehavior: MenuItemType.WhenAccount,
                 inDropdownBehavior: MenuItemType.Never
             }),
-            deposit: state => ({
-                target: state.clickHandlers.showDeposit,
+            gateways: state => ({
+                target: state.clickHandlers.showGatewaysModal,
                 icon: {
                     name: "deposit",
                     title: "icons.deposit.deposit"
                 },
-                text: "modal.deposit.submit",
-                disabled: !state.enableDepositWithdraw,
-                inDropdownBehavior: MenuItemType.WhenAccount
-            }),
-            withdraw: state => ({
-                target: state.clickHandlers.showWithdraw,
-                icon: "withdraw",
-                text: "modal.withdraw.submit",
+                text: "gateways",
                 disabled: !state.enableDepositWithdraw,
                 inDropdownBehavior: MenuItemType.WhenAccount
             }),
