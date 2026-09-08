@@ -8,7 +8,6 @@ import AccountActions from "actions/AccountActions";
 import SettingsActions from "actions/SettingsActions";
 import AccountBalance from "../Account/AccountBalance";
 import utils from "common/utils";
-import SettingsStore from "stores/SettingsStore";
 
 class BitKapital extends React.Component {
     static propTypes = {

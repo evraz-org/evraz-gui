@@ -78,40 +78,6 @@ const _isEnabled = gatewayKey => {
 };
 
 export const availableGateways = {
-    IOB: {
-        id: "IOB",
-        name: "ioxbank",
-        baseAPI: ioxbankAPIs,
-        isEnabled: _isEnabled("IOB"),
-        isSimple: true,
-        selected: false,
-        simpleAssetGateway: true,
-        fixedMemo: {
-            prepend_default: "dex:",
-            prepend_btsid: "",
-            append: ""
-        },
-        addressValidatorMethod: "POST",
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "https://ioxbank.com",
-        wallet: "https://dex.iobanker.com/"
-    },
-    GDEX: {
-        id: "GDEX",
-        name: "GDEX",
-        baseAPI: gdex2APIs,
-        isEnabled: () => false,
-        options: {
-            enabled: false,
-            selected: false
-        },
-        landing: "https://bitsharestalk.org/index.php?topic=33861",
-        wallet: "Only manual deposit / withdraw",
-        comment: "Only manual deposit / withdraw"
-    },
     PIRATE: {
         id: "PIRATE",
         name: "PirateCash",
