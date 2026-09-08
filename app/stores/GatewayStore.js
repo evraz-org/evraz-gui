@@ -120,6 +120,23 @@ class GatewayStore {
 
     onFetchCoinsSimple({backer, coins, down} = {}) {
         if (backer && coins) {
+            // Filter XBTSX Native Chains to only allow: BTC, DASH, DOGE, ETH, GRAM, HIVE, LTC, STH, WAVES
+            if (backer === "XBTSX") {
+                const allowedBackingCoins = [
+                    "BTC",
+                    "DASH",
+                    "DOGE",
+                    "ETH",
+                    "GRAM",
+                    "HIVE",
+                    "LTC",
+                    "STH",
+                    "WAVES"
+                ];
+                coins = coins.filter(coin =>
+                    allowedBackingCoins.includes(coin.backingCoin)
+                );
+            }
             this.backedCoins = this.backedCoins.set(backer, coins);
 
             ss.set("backedCoins", this.backedCoins.toJS());

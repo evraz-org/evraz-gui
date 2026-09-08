@@ -270,7 +270,7 @@ class MenuDataStructure {
                 text: "gateways",
                 disabled: !state.enableDepositWithdraw,
                 inHeaderBehavior: MenuItemType.WhenAccount,
-                inDropdownBehavior: MenuItemType.WhenAccount
+                inDropdownBehavior: MenuItemType.Never
             }),
             deposit_withdraw: state => ({
                 target: "/deposit-withdraw",
