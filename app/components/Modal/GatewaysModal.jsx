@@ -1,7 +1,7 @@
 import React from "react";
 import counterpart from "counterpart";
 import {DepositModalContent} from "./DepositModal";
-import WithdrawModalNew from "./WithdrawModalNew";
+import {WithdrawModalContentNew} from "./WithdrawModalNew";
 import {Modal, Button, Tabs} from "bitshares-ui-style-guide";
 
 class GatewaysModal extends React.Component {
@@ -37,7 +37,10 @@ class GatewaysModal extends React.Component {
                         tab={counterpart.translate("withdraw")}
                         key="withdraw"
                     >
-                        <WithdrawModalNew {...this.props} />
+                        <WithdrawModalContentNew
+                            {...this.props}
+                            hideModal={this.props.hideModal}
+                        />
                     </Tabs.TabPane>
                 </Tabs>
             </Modal>
