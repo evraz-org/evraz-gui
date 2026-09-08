@@ -75,6 +75,7 @@ class MenuDataStructure {
             allItems.dashboard,
             allItems.market,
             allItems.transfer,
+            allItems.gateways,
             allItems.deposit_withdraw,
             allItems.lending,
             allItems.explorer
@@ -131,8 +132,8 @@ class MenuDataStructure {
             allItems.explorer,
             allItems.divider,
             allItems.transfer,
-            allItems.deposit_withdraw,
             allItems.gateways,
+            allItems.deposit_withdraw,
             // allItems.account_voting,
             allItems.spotlight,
             allItems.insight,
@@ -268,6 +269,7 @@ class MenuDataStructure {
                 },
                 text: "gateways",
                 disabled: !state.enableDepositWithdraw,
+                inHeaderBehavior: MenuItemType.WhenAccount,
                 inDropdownBehavior: MenuItemType.WhenAccount
             }),
             deposit_withdraw: state => ({
