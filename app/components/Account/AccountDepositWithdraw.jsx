@@ -42,6 +42,8 @@ class AccountDepositWithdraw extends React.Component {
     constructor(props) {
         super();
         this.state = {
+            depositModalVisible: false,
+            withdrawModalVisible: false,
             olService: props.viewSettings.get("olService", "gateway"),
             rudexService: props.viewSettings.get("rudexService", "gateway"),
             bitsparkService: props.viewSettings.get(
@@ -84,7 +86,9 @@ class AccountDepositWithdraw extends React.Component {
             nextState.btService !== this.state.btService ||
             nextState.citadelService !== this.state.citadelService ||
             nextState.metaService !== this.state.metaService ||
-            nextState.activeService !== this.state.activeService
+            nextState.activeService !== this.state.activeService ||
+            nextState.depositModalVisible !== this.state.depositModalVisible ||
+            nextState.withdrawModalVisible !== this.state.withdrawModalVisible
         );
     }
 
@@ -496,11 +500,19 @@ class AccountDepositWithdraw extends React.Component {
                                 modalId="deposit_modal_new"
                                 account={this.props.currentAccount}
                                 backedCoins={this.props.backedCoins}
+                                hideModal={() =>
+                                    this.setState({depositModalVisible: false})
+                                }
+                                visible={this.state.depositModalVisible}
                             />
                             <WithdrawModal
                                 ref="withdraw_modal"
                                 modalId="withdraw_modal_new"
                                 backedCoins={this.props.backedCoins}
+                                hideModal={() =>
+                                    this.setState({withdrawModalVisible: false})
+                                }
+                                visible={this.state.withdrawModalVisible}
                             />
                             <TranslateWithLinks
                                 string="gateway.phase_out_warning"
@@ -509,10 +521,11 @@ class AccountDepositWithdraw extends React.Component {
                                         arg: "deposit_modal_link",
                                         value: (
                                             <a
-                                                onClick={() => {
-                                                    if (this.refs.deposit_modal)
-                                                        this.refs.deposit_modal.show();
-                                                }}
+                                                onClick={() =>
+                                                    this.setState({
+                                                        depositModalVisible: true
+                                                    })
+                                                }
                                             >
                                                 <Translate content="modal.deposit.submit" />
                                             </a>
@@ -522,12 +535,11 @@ class AccountDepositWithdraw extends React.Component {
                                         arg: "withdraw_modal_link",
                                         value: (
                                             <a
-                                                onClick={() => {
-                                                    if (
-                                                        this.refs.withdraw_modal
-                                                    )
-                                                        this.refs.withdraw_modal.show();
-                                                }}
+                                                onClick={() =>
+                                                    this.setState({
+                                                        withdrawModalVisible: true
+                                                    })
+                                                }
                                             >
                                                 <Translate content="modal.withdraw.submit" />
                                             </a>
