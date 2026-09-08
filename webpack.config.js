@@ -217,29 +217,6 @@ module.exports = function(env) {
     for /deposit-withdraw that will redirect to the hash router's equivalent
     /#/deposit-withdraw */
 
-    if (env.hash)
-        plugins.push(
-            new CopyWebpackPlugin({
-                patterns: [
-                    {
-                        from: path.join(
-                            root_dir,
-                            "app",
-                            "components",
-                            "DepositWithdraw",
-                            "blocktrades",
-                            "index.html"
-                        ),
-                        to: path.join(
-                            outputPath,
-                            "deposit-withdraw",
-                            "index.html"
-                        ),
-                        toType: "file"
-                    }
-                ]
-            })
-        );
     var alias = {
         sanitize$: "xss",
         moment$: path.resolve(root_dir, "node_modules/moment/moment.js"),
