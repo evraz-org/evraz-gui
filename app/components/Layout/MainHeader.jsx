@@ -556,15 +556,17 @@ class MainHeader extends React.Component {
                         </ul>
                     )}
                 </div>
-                <AccountImage
-                    size={{height: 40, width: 40}}
-                    account={currentAccount}
-                    custom_image={null}
-                    style={{
-                        marginLeft: "0.5rem",
-                        marginRight: "0.75rem"
-                    }}
-                />
+                {this.props.currentAccount == null ? null : (
+                    <AccountImage
+                        size={{height: 40, width: 40}}
+                        account={currentAccount}
+                        custom_image={null}
+                        style={{
+                            marginLeft: "0.5rem",
+                            marginRight: "0.75rem"
+                        }}
+                    />
+                )}
                 <div>
                     {this.props.currentAccount == null ? null : (
                         <span
