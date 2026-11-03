@@ -26,19 +26,13 @@ import {List} from "immutable";
 import DropDownMenu from "./HeaderDropdown";
 import {withRouter} from "react-router-dom";
 import {Notification} from "bitshares-ui-style-guide";
-import AccountBrowsingMode from "../Account/AccountBrowsingMode";
 import {setLocalStorageType, isPersistantType} from "lib/common/localStorage";
 import HeaderMenuItem from "./HeaderMenuItem";
 import DividerMenuItem from "./DividerMenuItem";
 import MenuItemType from "./MenuItemType";
 import MenuDataStructure from "./MenuDataStructure";
 
-import {getDefaultMarket, getSmallLogo} from "branding";
-var logo = getSmallLogo();
-
-// const FlagImage = ({flag, width = 20, height = 20}) => {
-//     return <img height={height} width={width} src={`${__BASE_URL__}language-dropdown/${flag.toUpperCase()}.png`} />;
-// };
+import {getDefaultMarket} from "branding";
 
 class Header extends React.Component {
     constructor(props) {
@@ -355,29 +349,7 @@ class Header extends React.Component {
                 </div>
             ) : null;
 
-        let dashboard = (
-            <a
-                className={cnames("logo", {
-                    active:
-                        active === "/" ||
-                        (active.indexOf("dashboard") !== -1 &&
-                            active.indexOf("account") === -1)
-                })}
-                onClick={this._onNavigate.bind(this, "/")}
-            >
-                <img style={{margin: 0, height: 40}} src={logo} />
-            </a>
-        );
-
         let createAccountLink = myAccountCount === 0 ? true : null;
-
-        // let lock_unlock = ((!!this.props.current_wallet) || passwordLogin) ? (
-        //     <div className="grp-menu-item" >
-        //     { this.props.locked ?
-        //         <a style={{padding: "1rem"}} href onClick={this._toggleLock.bind(this)} data-class="unlock-tooltip" data-offset="{'left': 50}" data-tip={locked_tip} data-place="bottom" data-html><Icon className="icon-14px" name="locked" title="icons.locked.common" /></a>
-        //         : <a style={{padding: "1rem"}} href onClick={this._toggleLock.bind(this)} data-class="unlock-tooltip" data-offset="{'left': 50}" data-tip={unlocked_tip} data-place="bottom" data-html><Icon className="icon-14px" name="unlocked" title="icons.unlocked.common" /></a> }
-        //     </div>
-        // ) : null;
 
         let tradeUrl = this.props.lastMarket
             ? `/market/${this.props.lastMarket}`
@@ -475,7 +447,10 @@ class Header extends React.Component {
         );
 
         return (
-            <div className="header-container" style={{minHeight: "64px"}}>
+            <div
+                className="header-container"
+                style={{minHeight: "64px", paddingLeft: "1rem"}}
+            >
                 <div>
                     <div
                         className="header menu-group primary"
@@ -526,8 +501,6 @@ class Header extends React.Component {
                         ) : null}
 
                         <ul className="menu-bar">
-                            <li>{dashboard}</li>
-
                             {menuDataStructure.map((menuItem, index) => {
                                 switch (menuItem.inHeaderBehavior) {
                                     case MenuItemType.Always:
@@ -580,78 +553,12 @@ class Header extends React.Component {
                 </div>
 
                 <div
-                    className="truncated active-account"
-                    style={{cursor: "pointer"}}
+                    className="app-menu"
+                    style={{
+                        right: 0,
+                        position: "absolute"
+                    }}
                 >
-                    <AccountBrowsingMode location={this.props.location} />
-                    <div>
-                        <div className="text account-name">
-                            <span onClick={this._toggleAccountDropdownMenu}>
-                                {currentAccount}
-                            </span>
-                            <AccountBrowsingMode
-                                location={this.props.location}
-                                usernameViewIcon
-                            />
-                        </div>
-                        {walletBalance}
-                    </div>
-
-                    {hasLocalWallet && (
-                        <ul
-                            className="dropdown header-menu local-wallet-menu"
-                            style={{
-                                right: 0,
-                                maxHeight: !this.state
-                                    .accountsListDropdownActive
-                                    ? 0
-                                    : maxHeight,
-                                overflowY: "auto",
-                                position: "absolute",
-                                width: "20em"
-                            }}
-                        >
-                            <HeaderMenuItem
-                                currentPath={active}
-                                includePattern="/accounts"
-                                target={this._onNavigate.bind(
-                                    this,
-                                    "/accounts"
-                                )}
-                                icon={{
-                                    name: "people",
-                                    title: "icons.manage_accounts",
-                                    size: "2x"
-                                }}
-                                text="header.accounts_manage"
-                            />
-
-                            <DividerMenuItem />
-
-                            {accountsList}
-                        </ul>
-                    )}
-                </div>
-                <div>
-                    {this.props.currentAccount == null ? null : (
-                        <span
-                            onClick={this._toggleLock.bind(this)}
-                            style={{cursor: "pointer"}}
-                        >
-                            <Icon
-                                className="lock-unlock"
-                                size="2x"
-                                name={this.props.locked ? "locked" : "unlocked"}
-                                title={
-                                    this.props.locked
-                                        ? "icons.locked.common"
-                                        : "icons.unlocked.common"
-                                }
-                            />
-                        </span>
-                    )}
-                </div>
-                <div className="app-menu">
                     <div
                         onClick={this._toggleDropdownMenu}
                         className={cnames(

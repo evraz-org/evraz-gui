@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import SyncError from "./components/SyncError";
 import LoadingIndicator from "./components/LoadingIndicator";
 import BrowserNotifications from "./components/BrowserNotifications/BrowserNotificationsContainer";
+import MainHeader from "components/Layout/MainHeader";
 import Header from "components/Layout/Header";
 import ReactTooltip from "react-tooltip";
 import NotificationSystem from "react-notification-system";
@@ -496,6 +497,7 @@ class App extends React.Component {
             content = (
                 <div className="grid-frame vertical">
                     {/*<NewsHeadline />*/}
+                    <MainHeader height={this.state.height} {...others} />
                     <Header height={this.state.height} {...others} />
                     <div id="mainContainer" className="grid-block">
                         <div className="grid-block vertical">
