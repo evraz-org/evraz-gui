@@ -456,50 +456,6 @@ class Header extends React.Component {
                         className="header menu-group primary"
                         style={{flexWrap: "nowrap", justifyContent: "none"}}
                     >
-                        {__ELECTRON__ ? (
-                            <div className="grid-block show-for-medium shrink electron-navigation">
-                                <ul className="menu-bar">
-                                    <li>
-                                        <div
-                                            style={{
-                                                marginLeft: "1rem",
-                                                height: "3rem"
-                                            }}
-                                        >
-                                            <div
-                                                style={{marginTop: "0.5rem"}}
-                                                onClick={this._onGoBack.bind(
-                                                    this
-                                                )}
-                                                className="button outline small"
-                                            >
-                                                {"<"}
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div
-                                            style={{
-                                                height: "3rem",
-                                                marginLeft: "0.5rem",
-                                                marginRight: "0.75rem"
-                                            }}
-                                        >
-                                            <div
-                                                style={{marginTop: "0.5rem"}}
-                                                onClick={this._onGoForward.bind(
-                                                    this
-                                                )}
-                                                className="button outline small"
-                                            >
-                                                {">"}
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        ) : null}
-
                         <ul className="menu-bar">
                             {menuDataStructure.map((menuItem, index) => {
                                 switch (menuItem.inHeaderBehavior) {
